@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Velenda · Pharma's Next Operating System</title>
+  <meta name="description" content="Velenda is a workflow operating system for pharma manufacturers, built on a proprietary global raw materials database with Clara AI as the predictive engine.">
+  <meta name="theme-color" content="#0E1F3D">
+  <meta name="color-scheme" content="light">
+
+  <link rel="icon" type="image/png" href="assets/velenda-logo.png">
+  <link rel="apple-touch-icon" href="assets/velenda-logo.png">
+
+  <meta property="og:title" content="Velenda · Pharma's Next Operating System">
+  <meta property="og:description" content="A workflow OS for formulation, sourcing and manufacturing, with Clara AI as the predictive engine.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.velenda.com/">
+  <meta property="og:image" content="assets/velenda-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+  /* ============== PAGE-SPECIFIC: HOME ============== */
+
+  /* Hero */
+  .vl-hero { position:relative; overflow:hidden; background:linear-gradient(180deg,#fff 0%,var(--vl-mint-pale) 100%); padding:104px 0 88px; }
+  .vl-hero__bg { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .vl-hero__grid {
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(51,63,112,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(51,63,112,.06) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+  .vl-hero__glow-a, .vl-hero__glow-b, .vl-hero__glow-c { position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; }
+  .vl-hero__glow-a { top:-180px; left:-120px; width:520px; height:520px; background:radial-gradient(circle, rgba(14,31,61,.30), transparent 70%); }
+  .vl-hero__glow-b { bottom:-220px; right:-140px; width:580px; height:580px; background:radial-gradient(circle, rgba(46,193,168,.30), transparent 70%); }
+  .vl-hero__glow-c { top:30%; right:8%; width:380px; height:380px; background:radial-gradient(circle, rgba(77,191,232,.25), transparent 70%); }
+  .vl-hero .container { position:relative; z-index:2; }
+
+  /* 3D perspective wrapper */
+  .vl-hero3d {
+    perspective:1400px;
+    transform-style:preserve-3d;
+  }
+
+  /* Floating 3D molecules */
+  .vl-mol {
+    position:absolute; pointer-events:none;
+    transform-style:preserve-3d;
+    animation:vlFloat 14s ease-in-out infinite;
+  }
+  .vl-mol--a { top:14%; left:6%;  width:140px; height:140px; animation-delay:-2s; }
+  .vl-mol--b { top:60%; right:8%; width:170px; height:170px; animation-delay:-6s; }
+  .vl-mol--c { bottom:8%; left:18%; width:110px; height:110px; animation-delay:-9s; }
+  .vl-mol__atom {
+    position:absolute; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--vl-teal-bright), var(--vl-teal) 60%, var(--vl-navy) 100%);
+    box-shadow:0 0 18px rgba(95,224,194,.5), inset 0 -2px 6px rgba(0,0,0,.25);
+  }
+  .vl-mol__atom--n1 { top:10%; left:46%; width:18px; height:18px; }
+  .vl-mol__atom--n2 { top:46%; left:8%;  width:16px; height:16px; background:radial-gradient(circle at 30% 30%, var(--vl-sky-soft), var(--vl-sky) 60%, var(--vl-navy) 100%); box-shadow:0 0 18px rgba(77,191,232,.5); }
+  .vl-mol__atom--n3 { top:50%; right:6%; width:20px; height:20px; }
+  .vl-mol__atom--n4 { bottom:8%; left:36%; width:22px; height:22px; background:radial-gradient(circle at 30% 30%, var(--vl-mint), var(--vl-teal-bright) 60%, var(--vl-teal-deep) 100%); }
+  .vl-mol__bond { position:absolute; top:50%; left:50%; height:1.5px; transform-origin:0 50%; background:linear-gradient(90deg, rgba(95,224,194,.7), rgba(77,191,232,.4)); }
+  .vl-mol__bond--b1 { width:36%; transform:translate(-50%,-50%) rotate(-32deg); }
+  .vl-mol__bond--b2 { width:34%; transform:translate(-50%,-50%) rotate(35deg); }
+  .vl-mol__bond--b3 { width:38%; transform:translate(-50%,-50%) rotate(95deg); }
+  .vl-mol__bond--b4 { width:32%; transform:translate(-50%,-50%) rotate(160deg); }
+  @keyframes vlFloat {
+    0%   { transform:translate3d(0,0,0)    rotateX(0deg)   rotateY(0deg); }
+    25%  { transform:translate3d(8px,-12px,0) rotateX(8deg)   rotateY(-12deg); }
+    50%  { transform:translate3d(0,-20px,0)   rotateX(-4deg)  rotateY(0deg); }
+    75%  { transform:translate3d(-10px,-8px,0) rotateX(-8deg) rotateY(12deg); }
+    100% { transform:translate3d(0,0,0)    rotateX(0deg)   rotateY(0deg); }
+  }
+
+  /* Brand lockup */
+  .vl-brandlockup { display:inline-flex; flex-direction:column; align-items:center; gap:14px; margin-bottom:1.5rem; }
+  .vl-brandlockup__logo { height:74px; width:auto; display:block; filter:drop-shadow(0 6px 20px rgba(14,31,61,.18)); }
+  @media (max-width:600px){ .vl-brandlockup__logo { height:56px; } }
+  .vl-brandlockup__tag {
+    font-family:var(--vl-mono); font-size:.72rem; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--vl-teal-deep); font-weight:600;
+    display:inline-flex; align-items:center; gap:10px;
+  }
+  .vl-brandlockup__tag::before, .vl-brandlockup__tag::after { content:""; width:22px; height:1px; background:linear-gradient(90deg, transparent, var(--vl-teal)); }
+  .vl-brandlockup__tag::after { background:linear-gradient(90deg, var(--vl-teal), transparent); }
+
+  /* System console */
+  .vl-console {
+    position:relative; max-width:1080px; margin:64px auto 0;
+    background:rgba(255,255,255,.86);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid rgba(14,31,61,.10);
+    border-radius:18px;
+    box-shadow:0 24px 60px rgba(14,31,61,.10), inset 0 1px 0 rgba(255,255,255,.7);
+    overflow:hidden;
+    transform-style:preserve-3d;
+    transition:transform .5s ease;
+  }
+  .vl-console::before {
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    padding:1px;
+    background:linear-gradient(135deg, rgba(46,193,168,.50), transparent 35%, transparent 65%, rgba(77,191,232,.40));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+  }
+  .vl-console__head {
+    display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+    padding:11px 22px;
+    font-family:var(--vl-mono); font-size:.66rem; letter-spacing:.20em;
+    color:var(--vl-mute); text-transform:uppercase;
+    background:linear-gradient(180deg, rgba(46,193,168,.07), transparent);
+    border-bottom:1px solid var(--vl-line);
+    position:relative; z-index:1;
+  }
+  .vl-console__head-label { display:inline-flex; align-items:center; gap:8px; font-weight:700; color:var(--vl-navy); }
+  .vl-console__head-dot { width:7px; height:7px; border-radius:50%; background:var(--vl-teal); box-shadow:0 0 0 3px rgba(46,193,168,.18); animation:vlPulse 2s infinite; }
+  .vl-console__head-meta { color:var(--vl-teal-deep); font-weight:700; }
+  .vl-console__body { display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; position:relative; z-index:1; }
+  .vl-console__cell { padding:26px 28px; display:flex; flex-direction:column; gap:10px; align-items:flex-start; text-align:left; }
+  .vl-console__divider { background:linear-gradient(180deg, transparent, var(--vl-line) 20%, var(--vl-line) 80%, transparent); align-self:stretch; }
+  .vl-console__pill {
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:var(--vl-mono); font-size:.66rem; font-weight:700; letter-spacing:.20em; text-transform:uppercase;
+    padding:5px 11px; border-radius:999px;
+    background:rgba(46,193,168,.10); border:1px solid rgba(46,193,168,.32);
+    color:var(--vl-teal-deep);
+  }
+  .vl-console__pill::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--vl-teal); box-shadow:0 0 8px rgba(46,193,168,.7); animation:vlPulse 1.6s infinite; }
+  .vl-console__pill--build { background:rgba(77,191,232,.10); border-color:rgba(77,191,232,.32); color:var(--vl-sky-deep); }
+  .vl-console__pill--build::before { background:var(--vl-sky); box-shadow:0 0 8px rgba(77,191,232,.7); }
+  .vl-console__pill--open { background:rgba(14,31,61,.06); border-color:rgba(14,31,61,.22); color:var(--vl-navy); }
+  .vl-console__pill--open::before { background:var(--vl-navy); box-shadow:0 0 0 2px rgba(14,31,61,.16); animation:none; }
+  .vl-console__title { font-family:var(--vl-sans); font-size:1.1rem; font-weight:700; color:var(--vl-navy); letter-spacing:-.005em; line-height:1.25; margin:0; }
+  .vl-console__desc  { color:var(--vl-mute); font-size:.9rem; line-height:1.5; margin:0; }
+  @media (max-width:767.98px){
+    .vl-console { margin-top:44px; }
+    .vl-console__head { padding:10px 18px; font-size:.6rem; }
+    .vl-console__body { grid-template-columns:1fr; }
+    .vl-console__divider { height:1px; width:100%; background:linear-gradient(90deg, transparent, var(--vl-line) 15%, var(--vl-line) 85%, transparent); }
+    .vl-console__cell { padding:22px; }
+  }
+
+  /* ECG */
+  .vl-ecg { position:relative; height:80px; overflow:hidden; background:linear-gradient(180deg, transparent, rgba(38,166,136,.05), transparent); }
+  .vl-ecg svg { position:absolute; left:0; top:50%; width:200%; height:60px; transform:translateY(-50%); animation:vlEcg 14s linear infinite; }
+  .vl-ecg path { fill:none; stroke:var(--vl-teal); stroke-width:1.2; filter:drop-shadow(0 0 6px rgba(38,166,136,.55)); stroke-linejoin:round; stroke-linecap:round; }
+  @keyframes vlEcg { from { transform:translate(0,-50%); } to { transform:translate(-50%,-50%); } }
+
+  /* Pillar cards */
+  .vl-pillar-row { position:relative; }
+  .vl-card {
+    position:relative; background:#fff; border:1px solid var(--vl-line);
+    border-radius:18px; padding:34px; height:100%;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .25s ease, border-color .25s ease;
+    overflow:hidden; z-index:1;
+    transform-style:preserve-3d;
+    will-change:transform;
+  }
+  .vl-card:hover { box-shadow:0 22px 50px rgba(51,63,112,.14); border-color:rgba(38,166,136,.40); }
+  .vl-card::before {
+    content:""; position:absolute; inset:0; border-radius:inherit;
+    padding:1px; pointer-events:none;
+    background:linear-gradient(135deg, transparent 35%, rgba(38,166,136,.55), transparent 65%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    opacity:0; transition:opacity .35s ease;
+  }
+  .vl-card:hover::before { opacity:1; }
+  .vl-card::after {
+    content:""; position:absolute; left:var(--mx,50%); top:var(--my,50%);
+    width:300px; height:300px; transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(46,193,168,.18), transparent 65%);
+    opacity:0; transition:opacity .25s ease;
+    pointer-events:none;
+  }
+  .vl-card:hover::after { opacity:1; }
+  .vl-card__icon {
+    width:54px; height:54px; border-radius:13px;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, var(--vl-mint-pale), var(--vl-mint-soft));
+    color:var(--vl-teal-deep); margin-bottom:18px; position:relative;
+    transform:translateZ(20px);
+  }
+  .vl-card__icon::after {
+    content:""; position:absolute; inset:-6px; border-radius:inherit;
+    border:1px dashed rgba(38,166,136,.35); opacity:0; transition:opacity .25s ease;
+  }
+  .vl-card:hover .vl-card__icon::after { opacity:1; }
+  .vl-card .vl-h3, .vl-card .vl-body { transform:translateZ(10px); }
+  .vl-corner { position:absolute; width:18px; height:18px; border-color:var(--vl-teal); border-style:solid; border-width:0; opacity:.6; pointer-events:none; }
+  .vl-corner--tl { top:10px; left:10px;  border-top-width:2px; border-left-width:2px;  border-top-left-radius:4px; }
+  .vl-corner--tr { top:10px; right:10px; border-top-width:2px; border-right-width:2px; border-top-right-radius:4px; }
+  .vl-corner--bl { bottom:10px; left:10px;  border-bottom-width:2px; border-left-width:2px;  border-bottom-left-radius:4px; }
+  .vl-corner--br { bottom:10px; right:10px; border-bottom-width:2px; border-right-width:2px; border-bottom-right-radius:4px; }
+
+  @media (min-width:768px){
+    .vl-connect { position:absolute; left:32px; right:32px; top:88px; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(38,166,136,.30) 15%, rgba(38,166,136,.30) 85%, transparent);
+      z-index:0; pointer-events:none; }
+    .vl-connect span { position:absolute; top:50%; transform:translate(-50%,-50%); width:9px; height:9px; border-radius:50%; background:var(--vl-teal); box-shadow:0 0 0 4px rgba(38,166,136,.18), 0 0 12px rgba(38,166,136,.6); animation:vlPulse 2.4s infinite; }
+    .vl-connect span:nth-child(1){ left:16.6%; }
+    .vl-connect span:nth-child(2){ left:50%; }
+    .vl-connect span:nth-child(3){ left:83.3%; }
+  }
+
+  .vl-checks { list-style:none; padding:0; margin:0; }
+  .vl-checks li { position:relative; padding:10px 0 10px 36px; color:#1f2851; font-size:1rem; line-height:1.55; }
+  .vl-checks li::before { content:""; position:absolute; left:0; top:13px; width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg, var(--vl-navy), var(--vl-teal)); box-shadow:0 4px 10px rgba(38,166,136,.28); }
+  .vl-checks li::after  { content:""; position:absolute; left:7px; top:19px; width:8px; height:4px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg); }
+
+  /* Clara visual */
+  .vl-clara {
+    position:relative; aspect-ratio:1/1; border-radius:24px; overflow:hidden;
+    background:
+      radial-gradient(circle at 28% 28%, rgba(95,224,194,.32), transparent 55%),
+      radial-gradient(circle at 78% 32%, rgba(77,191,232,.28), transparent 55%),
+      radial-gradient(circle at 50% 85%, rgba(46,193,168,.28), transparent 55%),
+      linear-gradient(135deg, #0E1F3D 0%, #070F22 100%);
+    display:flex; align-items:center; justify-content:center; color:#fff;
+    box-shadow:0 30px 80px rgba(14,31,61,.32);
+    transform-style:preserve-3d;
+    transition:transform .6s cubic-bezier(.2,.7,.2,1);
+  }
+  .vl-clara__grid {
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image:radial-gradient(ellipse at center, #000 40%, transparent 80%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 40%, transparent 80%);
+  }
+  .vl-clara__scan { position:absolute; left:0; right:0; top:0; height:1px; background:linear-gradient(90deg, transparent, rgba(75,231,195,.85), transparent); animation:vlScan 5s linear infinite; }
+  .vl-clara__corners span { position:absolute; width:18px; height:18px; border:2px solid rgba(75,231,195,.55); }
+  .vl-clara__corners span:nth-child(1){ top:20px; left:20px;  border-right:0; border-bottom:0; }
+  .vl-clara__corners span:nth-child(2){ top:20px; right:20px; border-left:0;  border-bottom:0; }
+  .vl-clara__corners span:nth-child(3){ bottom:20px; left:20px;  border-right:0; border-top:0; }
+  .vl-clara__corners span:nth-child(4){ bottom:20px; right:20px; border-left:0;  border-top:0; }
+  .vl-clara__orbit { position:relative; width:280px; height:280px; border-radius:50%; border:1px dashed rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; animation:vlSpin 30s linear infinite; transform-style:preserve-3d; }
+  .vl-clara__orbit::before, .vl-clara__orbit::after { content:""; position:absolute; border-radius:50%; border:1px dashed rgba(255,255,255,.16); }
+  .vl-clara__orbit::before { inset:-40px; }
+  .vl-clara__orbit::after  { inset:-80px; }
+  .vl-clara__node { position:absolute; width:11px; height:11px; border-radius:50%; background:var(--vl-teal-bright); box-shadow:0 0 14px rgba(95,224,194,.85); }
+  .vl-clara__node:nth-child(1){ top:-5px; left:50%; transform:translateX(-50%); }
+  .vl-clara__node:nth-child(2){ right:-5px; top:50%; transform:translateY(-50%); background:var(--vl-teal); box-shadow:0 0 14px rgba(46,193,168,.85); }
+  .vl-clara__node:nth-child(3){ bottom:-5px; left:50%; transform:translateX(-50%); background:var(--vl-sky); box-shadow:0 0 14px rgba(77,191,232,.85); }
+  .vl-clara__node:nth-child(4){ left:-5px; top:50%; transform:translateY(-50%); background:var(--vl-mint); box-shadow:0 0 14px rgba(122,236,204,.85); }
+  .vl-clara__core {
+    width:122px; height:122px; border-radius:50%;
+    background:conic-gradient(from 90deg at 50% 50%,
+      var(--vl-teal-bright) 0deg, var(--vl-teal) 90deg,
+      var(--vl-sky) 180deg, var(--vl-mint) 270deg,
+      var(--vl-teal-bright) 360deg);
+    box-shadow:0 0 60px rgba(95,224,194,.55), 0 0 80px rgba(77,191,232,.30);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:1.05rem; letter-spacing:.18em; color:#0E1F3D;
+    animation:vlSpinRev 30s linear infinite; position:relative;
+  }
+  .vl-clara__core::before { content:""; position:absolute; inset:8px; border-radius:50%; background:linear-gradient(135deg, #fff, #E6F9F4 60%, #A6E2F2); }
+  .vl-clara__core > * { position:relative; z-index:1; }
+  .vl-clara__core::after { content:""; position:absolute; inset:-10px; border-radius:50%; border:1px solid rgba(255,255,255,.25); animation:vlPulseRing 3s ease-out infinite; }
+  @keyframes vlPulseRing { 0% { transform:scale(1); opacity:.7; } 100% { transform:scale(1.6); opacity:0; } }
+  @keyframes vlSpin    { to { transform:rotate(360deg); } }
+  @keyframes vlSpinRev { to { transform:rotate(-360deg); } }
+
+  .vl-telemetry { position:absolute; left:20px; right:20px; bottom:20px; display:flex; flex-direction:column; gap:6px; z-index:2; font-family:var(--vl-mono); font-size:11px; color:rgba(255,255,255,.88); }
+  .vl-tele-row { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 12px; border-radius:8px; background:rgba(0,0,0,.30); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.10); }
+  .vl-tele-row__label { color:rgba(255,255,255,.65); }
+  .vl-tele-row__value { color:#A6E2F2; font-weight:700; letter-spacing:.04em; }
+  .vl-tele-row__bar   { flex:1; max-width:90px; height:4px; border-radius:2px; background:rgba(255,255,255,.12); position:relative; overflow:hidden; }
+  .vl-tele-row__bar::after { content:""; position:absolute; inset:0; transform-origin:left; background:linear-gradient(90deg, var(--vl-teal-bright), var(--vl-sky)); animation:vlBar 4s ease-in-out infinite; }
+  .vl-tele-row:nth-child(2) .vl-tele-row__bar::after { animation-delay:-1s; }
+  .vl-tele-row:nth-child(3) .vl-tele-row__bar::after { animation-delay:-2s; }
+  @keyframes vlBar { 0% { transform:scaleX(.18); } 50% { transform:scaleX(.96); } 100% { transform:scaleX(.18); } }
+
+  /* Live metrics ticker (new) */
+  .vl-ticker {
+    position:relative;
+    background:linear-gradient(180deg, var(--vl-mint-pale), #fff);
+    border-top:1px solid var(--vl-line);
+    border-bottom:1px solid var(--vl-line);
+    padding:18px 0;
+    overflow:hidden;
+    font-family:var(--vl-mono);
+    font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--vl-navy);
+  }
+  .vl-ticker__track {
+    display:flex; gap:48px;
+    width:max-content;
+    animation:vlTickerScroll 38s linear infinite;
+  }
+  .vl-ticker__item {
+    display:inline-flex; align-items:center; gap:10px;
+    color:var(--vl-mute);
+  }
+  .vl-ticker__item strong { color:var(--vl-teal-deep); }
+  .vl-ticker__item::before {
+    content:""; width:6px; height:6px; border-radius:50%;
+    background:var(--vl-teal);
+    box-shadow:0 0 8px rgba(46,193,168,.7);
+  }
+  @keyframes vlTickerScroll {
+    from { transform:translateX(0); }
+    to   { transform:translateX(-50%); }
+  }
+
+  /* Final CTA */
+  .vl-final { position:relative; }
+  .vl-final::after {
+    content:""; position:absolute; left:50%; top:50%;
+    width:min(640px,80vw); height:min(640px,80vw);
+    transform:translate(-50%,-50%);
+    background:url('assets/velenda-logo.png') center/contain no-repeat;
+    opacity:.04; filter:grayscale(20%) brightness(2.5);
+    pointer-events:none; mix-blend-mode:screen;
+  }
+  .vl-final__inner { position:relative; z-index:1; max-width:980px; margin:0 auto; text-align:center; padding:24px; }
+  .vl-final__eyebrow {
+    display:inline-flex; align-items:center; gap:.55rem;
+    font-family:var(--vl-mono); font-size:.72rem; letter-spacing:.25em; text-transform:uppercase;
+    color:var(--vl-teal-bright); font-weight:600; margin-bottom:1.1rem;
+    padding:.45rem 1rem; background:rgba(75,231,195,.08); border:1px solid rgba(75,231,195,.25); border-radius:999px;
+  }
+  .vl-final__eyebrow-dot { width:7px; height:7px; border-radius:50%; background:var(--vl-teal-bright); box-shadow:0 0 12px var(--vl-teal-bright); animation:vlPulse 1.6s ease-in-out infinite; }
+  .vl-final__h { font-family:var(--vl-sans); font-weight:700; font-size:clamp(2rem,4vw,3rem); letter-spacing:-.02em; line-height:1.1; color:#fff; margin:0 0 1rem; }
+  .vl-final__h em { font-style:normal; background:linear-gradient(135deg, var(--vl-mint) 0%, var(--vl-teal-bright) 45%, var(--vl-sky) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .vl-final__p { color:rgba(255,255,255,.72); font-size:1.05rem; line-height:1.7; max-width:680px; margin:0 auto 2rem; }
+  .vl-final__cta {
+    position:relative; display:inline-flex; align-items:center; gap:.6rem;
+    background:linear-gradient(135deg, var(--vl-teal-deep) 0%, var(--vl-teal) 50%, var(--vl-sky-deep) 100%);
+    color:#fff !important; padding:1rem 2.4rem; border-radius:12px; font-weight:700; text-decoration:none;
+    box-shadow:0 14px 35px -8px rgba(46,193,168,.55), 0 0 0 1px rgba(255,255,255,.10) inset;
+    transition:transform .3s ease, box-shadow .3s ease; overflow:hidden;
+  }
+  .vl-final__cta::before { content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent); transition:left .6s ease; }
+  .vl-final__cta:hover { transform:translateY(-2px); box-shadow:0 22px 45px -10px rgba(38,166,136,.7), 0 0 0 1px rgba(255,255,255,.20) inset, 0 0 30px rgba(38,166,136,.25); }
+  .vl-final__cta:hover::before { left:100%; }
+  .vl-final__cta svg { width:16px; height:16px; transition:transform .3s ease; }
+  .vl-final__cta:hover svg { transform:translateX(4px); }
+  .vl-final__email { display:block; margin-top:1.4rem; color:rgba(255,255,255,.6); font-size:.85rem; font-family:var(--vl-mono); }
+  .vl-final__email a { color:var(--vl-sky); text-decoration:none; }
+  .vl-final__email a:hover { color:#fff; text-shadow:0 0 12px var(--vl-sky); }
+
+  @media (max-width:767.98px){
+    .vl-hero { padding:80px 0 64px; }
+    .vl-section { padding:72px 0; }
+    .vl-clara__orbit { width:220px; height:220px; }
+    .vl-clara__orbit::before { inset:-28px; }
+    .vl-clara__orbit::after  { inset:-56px; }
+    .vl-ecg { height:60px; }
+    .vl-telemetry { font-size:10px; left:14px; right:14px; bottom:14px; }
+    .vl-mol { display:none; }
+  }
+  </style>
+</head>
+<body>
+  <a class="vl-skip" href="#main">Skip to content</a>
+  <div class="vl-grain" aria-hidden="true"></div>
+  <div class="vl-cursor" aria-hidden="true"></div>
+
+  <!-- Header (injected by main.js) -->
+  <div id="vl-header-slot"></div>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="vl-hero vl-hero3d">
+      <div class="vl-hero__bg">
+        <div class="vl-hero__grid"></div>
+        <div class="vl-hex"></div>
+        <div class="vl-particles"></div>
+        <div class="vl-aurora"></div>
+        <div class="vl-scanline"></div>
+        <div class="vl-hero__glow-a"></div>
+        <div class="vl-hero__glow-b"></div>
+        <div class="vl-hero__glow-c"></div>
+
+        <!-- Floating 3D molecules -->
+        <div class="vl-mol vl-mol--a" aria-hidden="true">
+          <span class="vl-mol__bond vl-mol__bond--b1"></span>
+          <span class="vl-mol__bond vl-mol__bond--b2"></span>
+          <span class="vl-mol__bond vl-mol__bond--b3"></span>
+          <span class="vl-mol__atom vl-mol__atom--n1"></span>
+          <span class="vl-mol__atom vl-mol__atom--n2"></span>
+          <span class="vl-mol__atom vl-mol__atom--n3"></span>
+          <span class="vl-mol__atom vl-mol__atom--n4"></span>
+        </div>
+        <div class="vl-mol vl-mol--b" aria-hidden="true">
+          <span class="vl-mol__bond vl-mol__bond--b1"></span>
+          <span class="vl-mol__bond vl-mol__bond--b3"></span>
+          <span class="vl-mol__bond vl-mol__bond--b4"></span>
+          <span class="vl-mol__atom vl-mol__atom--n1"></span>
+          <span class="vl-mol__atom vl-mol__atom--n2"></span>
+          <span class="vl-mol__atom vl-mol__atom--n3"></span>
+          <span class="vl-mol__atom vl-mol__atom--n4"></span>
+        </div>
+        <div class="vl-mol vl-mol--c" aria-hidden="true">
+          <span class="vl-mol__bond vl-mol__bond--b2"></span>
+          <span class="vl-mol__bond vl-mol__bond--b3"></span>
+          <span class="vl-mol__atom vl-mol__atom--n1"></span>
+          <span class="vl-mol__atom vl-mol__atom--n2"></span>
+          <span class="vl-mol__atom vl-mol__atom--n3"></span>
+        </div>
+      </div>
+      <div class="container">
+        <div class="d-flex flex-column align-items-center text-center">
+          <div class="vl-brandlockup vl-reveal">
+            <img src="assets/velenda-logo.png" alt="Velenda" class="vl-brandlockup__logo">
+            <span class="vl-brandlockup__tag">From Bench to Warehouse</span>
+          </div>
+          <span class="vl-pill mb-4 vl-reveal" data-delay="1">
+            <span class="vl-pill__dot"></span>
+            In active development
+          </span>
+          <h1 class="vl-h1 mb-4 vl-reveal" data-delay="2" style="max-width:1040px;">
+            A proprietary global raw materials database. The foundation of <span class="vl-grad">pharma's next operating system</span>.
+          </h1>
+          <p class="vl-lead mb-5 vl-reveal" data-delay="3" style="max-width:780px;">
+            We already run procurement against this database for pharma manufacturers today. Velenda is what we are building on top of it: a workflow OS for formulation, sourcing and manufacturing, with Clara AI as the predictive engine. A small cohort of pilot partners is being onboarded for bespoke deployments.
+          </p>
+          <div class="d-flex flex-wrap justify-content-center gap-3 vl-reveal" data-delay="3">
+            <a href="contact.html" class="vl-cta">
+              Contact us
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="https://www.tricorian.com/contact-us/" class="vl-ghost">Get in touch</a>
+          </div>
+        </div>
+
+        <div class="vl-console vl-reveal" data-tilt>
+          <div class="vl-console__head">
+            <span class="vl-console__head-label"><span class="vl-console__head-dot"></span>Velenda &middot; System status</span>
+            <span class="vl-console__head-meta">build &middot; 2026</span>
+          </div>
+          <div class="vl-console__body">
+            <div class="vl-console__cell">
+              <span class="vl-console__pill">Live</span>
+              <h3 class="vl-console__title">Raw materials database</h3>
+              <p class="vl-console__desc">Extensive proprietary dataset, powering active pharma sourcing through our procurement desk today.</p>
+            </div>
+            <span class="vl-console__divider" aria-hidden="true"></span>
+            <div class="vl-console__cell">
+              <span class="vl-console__pill vl-console__pill--build">In build</span>
+              <h3 class="vl-console__title">Velenda &amp; Clara AI</h3>
+              <p class="vl-console__desc">The intelligence layer being constructed on top of the live database. Pilot-ready in stages.</p>
+            </div>
+            <span class="vl-console__divider" aria-hidden="true"></span>
+            <div class="vl-console__cell">
+              <span class="vl-console__pill vl-console__pill--open">Open</span>
+              <h3 class="vl-console__title">Pilot partnerships</h3>
+              <p class="vl-console__desc">A small cohort of pharma manufacturers are being onboarded for bespoke, co-developed deployments.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="vl-ecg" aria-hidden="true" role="presentation">
+      <svg viewBox="0 0 800 60" preserveAspectRatio="none">
+        <path d="M0 52 L60 52 C70 52 76 40 86 40 C96 40 102 52 114 52 L170 52 C184 52 192 22 206 22 C220 22 228 52 244 52 L305 52 C322 52 332 6 352 6 C372 6 382 52 402 52 L460 52 C470 52 474 44 482 44 C490 44 494 52 506 52 L555 52 C568 52 576 28 590 28 C604 28 612 52 628 52 L700 52 C712 52 718 46 724 46 C730 46 734 52 742 52 L800 52"/>
+        <path d="M-800 52 L-740 52 C-730 52 -724 40 -714 40 C-704 40 -698 52 -686 52 L-630 52 C-616 52 -608 22 -594 22 C-580 22 -572 52 -556 52 L-495 52 C-478 52 -468 6 -448 6 C-428 6 -418 52 -398 52 L-340 52 C-330 52 -326 44 -318 44 C-310 44 -306 52 -294 52 L-245 52 C-232 52 -224 28 -210 28 C-196 28 -188 52 -172 52 L-100 52 C-88 52 -82 46 -76 46 C-70 46 -66 52 -58 52 L0 52"/>
+      </svg>
+    </div>
+
+    <!-- Live metrics ticker -->
+    <div class="vl-ticker" aria-hidden="true">
+      <div class="vl-ticker__track">
+        <span class="vl-ticker__item">Materials indexed &nbsp;<strong>250k+</strong></span>
+        <span class="vl-ticker__item">Qualified suppliers &nbsp;<strong>14k+</strong></span>
+        <span class="vl-ticker__item">Active sourcing lines &nbsp;<strong>Live</strong></span>
+        <span class="vl-ticker__item">Clara cost models &nbsp;<strong>Continuous</strong></span>
+        <span class="vl-ticker__item">Pilot deployments &nbsp;<strong>Onboarding</strong></span>
+        <span class="vl-ticker__item">Regions covered &nbsp;<strong>Global</strong></span>
+        <!-- duplicate for seamless loop -->
+        <span class="vl-ticker__item">Materials indexed &nbsp;<strong>250k+</strong></span>
+        <span class="vl-ticker__item">Qualified suppliers &nbsp;<strong>14k+</strong></span>
+        <span class="vl-ticker__item">Active sourcing lines &nbsp;<strong>Live</strong></span>
+        <span class="vl-ticker__item">Clara cost models &nbsp;<strong>Continuous</strong></span>
+        <span class="vl-ticker__item">Pilot deployments &nbsp;<strong>Onboarding</strong></span>
+        <span class="vl-ticker__item">Regions covered &nbsp;<strong>Global</strong></span>
+      </div>
+    </div>
+
+    <!-- CAPABILITIES -->
+    <section id="capabilities" class="vl-section vl-section--white">
+      <div class="container">
+        <div class="text-center mb-5 vl-reveal">
+          <span class="vl-eyebrow">
+            <span class="vl-eyebrow-dot"></span>
+            What Velenda unifies
+          </span>
+          <h2 class="vl-h2 mt-3 mb-3" style="max-width:820px;margin-left:auto;margin-right:auto;">
+            One operating layer for the work that runs a modern pharma manufacturer.
+          </h2>
+          <p class="vl-lead" style="max-width:760px;margin:0 auto;">
+            Velenda collapses the three motions that decide margin into a single coordinated layer. Less stack. Fewer handoffs. One source of truth, fed by the database underneath.
+          </p>
+        </div>
+
+        <div class="row g-4 mt-4 vl-pillar-row">
+          <div class="vl-connect" aria-hidden="true"><span></span><span></span><span></span></div>
+
+          <div class="col-12 col-md-4 vl-reveal">
+            <div class="vl-card" data-tilt>
+              <span class="vl-corner vl-corner--tl"></span>
+              <span class="vl-corner vl-corner--tr"></span>
+              <span class="vl-corner vl-corner--bl"></span>
+              <span class="vl-corner vl-corner--br"></span>
+              <div class="vl-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 9a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3l-5-9V3"/><path d="M8 3h8"/></svg>
+              </div>
+              <h3 class="vl-h3 mb-2">Formulation</h3>
+              <p class="vl-body mb-0">
+                Bring discovery and reformulation into the same environment as your supplier intelligence. Composition decisions made with live visibility into materials, suppliers and downstream cost, before specs lock and change orders get expensive.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4 vl-reveal" data-delay="1">
+            <div class="vl-card" data-tilt>
+              <span class="vl-corner vl-corner--tl"></span>
+              <span class="vl-corner vl-corner--tr"></span>
+              <span class="vl-corner vl-corner--bl"></span>
+              <span class="vl-corner vl-corner--br"></span>
+              <div class="vl-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+              </div>
+              <h3 class="vl-h3 mb-2">Procurement</h3>
+              <p class="vl-body mb-0">
+                Move beyond the spreadsheet, the supplier portal and the inbox. Source against a global, qualified materials base with quality, lead time and commercial terms in one view. Today this runs as our service. Soon it runs inside your workflow.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4 vl-reveal" data-delay="2">
+            <div class="vl-card" data-tilt>
+              <span class="vl-corner vl-corner--tl"></span>
+              <span class="vl-corner vl-corner--tr"></span>
+              <span class="vl-corner vl-corner--bl"></span>
+              <span class="vl-corner vl-corner--br"></span>
+              <div class="vl-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l5-4 5 4v14"/><path d="M19 21V11l-4-3"/><path d="M9 9v.01"/><path d="M9 13v.01"/><path d="M9 17v.01"/></svg>
+              </div>
+              <h3 class="vl-h3 mb-2">Manufacturing</h3>
+              <p class="vl-body mb-0">
+                Production, quality and supply orchestrated against the same data your buyers and formulators use. Fewer disconnected systems, fewer reconciliations, faster response when a material, a batch or a supplier moves.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLARA -->
+    <section id="clara" class="vl-section vl-section--gradient">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-12 col-md-6 vl-reveal">
+            <span class="vl-eyebrow">
+              <span class="vl-eyebrow-dot"></span>
+              The moat
+            </span>
+            <h2 class="vl-h2 mt-3 mb-4">
+              The database is the moat. Clara is the intelligence. Velenda is the deployment.
+            </h2>
+            <p class="vl-lead mb-4">
+              The asset is the database: years of curated global raw materials intelligence, live, proprietary, already commercialised through our procurement desk. Clara AI trains against that foundation, learning the structure of pharma supply at a depth public data cannot reach. Velenda is the workflow OS pilot partners deploy to put both inside the daily decisions that move COGS. This is not a tool. It is a position.
+            </p>
+            <ul class="vl-checks">
+              <li>Sees supply pressure forming before the market does</li>
+              <li>Reads ingredient economics across regions and tiers</li>
+              <li>Surfaces substitutions the static catalogues never list</li>
+              <li>Models exposure across your bill of materials, continuously</li>
+            </ul>
+          </div>
+          <div class="col-12 col-md-6 vl-reveal" data-delay="1">
+            <div class="vl-clara" data-tilt>
+              <div class="vl-clara__grid"></div>
+              <div class="vl-clara__scan"></div>
+              <div class="vl-clara__corners"><span></span><span></span><span></span><span></span></div>
+              <div class="vl-clara__orbit">
+                <span class="vl-clara__node"></span>
+                <span class="vl-clara__node"></span>
+                <span class="vl-clara__node"></span>
+                <span class="vl-clara__node"></span>
+                <div class="vl-clara__core">CLARA</div>
+              </div>
+              <div class="vl-telemetry" aria-hidden="true">
+                <div class="vl-tele-row">
+                  <span class="vl-tele-row__label">MATERIALS_DB</span>
+                  <span class="vl-tele-row__bar"></span>
+                  <span class="vl-tele-row__value">INDEXED</span>
+                </div>
+                <div class="vl-tele-row">
+                  <span class="vl-tele-row__label">SUPPLIER_GRAPH</span>
+                  <span class="vl-tele-row__bar"></span>
+                  <span class="vl-tele-row__value">TRAINING</span>
+                </div>
+                <div class="vl-tele-row">
+                  <span class="vl-tele-row__label">COST_MODEL</span>
+                  <span class="vl-tele-row__bar"></span>
+                  <span class="vl-tele-row__value">LIVE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section id="contact" class="vl-section vl-section--dark vl-final">
+      <div class="container">
+        <div class="vl-final__inner vl-reveal">
+          <span class="vl-final__eyebrow">
+            <span class="vl-final__eyebrow-dot"></span>
+            Partner with us
+          </span>
+          <h2 class="vl-final__h">Lower raw-material spend. Collapse the software stack. <em>Deploy Velenda alongside us.</em></h2>
+          <p class="vl-final__p">
+            Velenda goes to market through bespoke deployments with a small group of pharma partners. The commercial case is direct: meaningful raw-material savings sourced through our database, and consolidation of fragmented ERP, QMS, supplier portal and formulation tooling into one operating layer. Whether you need materials sourced today or want to deploy Velenda inside your operations, one contact reaches us. We respond within 24 hours.
+          </p>
+          <a href="contact.html" class="vl-final__cta">
+            Start the conversation
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <span class="vl-final__email">
+            or <a href="https://www.tricorian.com/contact-us/">get in touch with our team</a>
+          </span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer (injected by main.js) -->
+  <div id="vl-footer-slot"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
