@@ -1,0 +1,78 @@
+<!--
+  VELENDA / Site footer
+  Loaded into <div id="vl-footer-slot"></div> by js/main.js (fetch + inject).
+  Edit this file directly; the home page and every other page picks it up.
+
+  Tokens injected at runtime:
+    {{TRICORIAN_HOME}}  → https://www.tricorian.com/  (defined in js/main.js)
+    {{YEAR}}            → current year                (computed in js/main.js)
+-->
+<footer class="vl-footer">
+  <div class="vl-footer__bg">
+    <div class="vl-footer__grid"></div>
+  </div>
+  <div class="container vl-footer__inner">
+    <div class="vl-footer__top">
+
+      <div class="vl-footer__brand">
+        <img src="assets/velenda-logo.png" alt="Velenda" class="vl-footer__logo">
+        <p class="vl-footer__lede">
+          A workflow operating system for pharma. Formulation, sourcing and manufacturing
+          unified on top of the world's deepest proprietary raw materials database, with
+          Clara AI as the predictive engine.
+        </p>
+        <span class="vl-footer__signal">
+          <span class="vl-footer__signal-dot"></span>
+          System &middot; Live · Build 2026
+        </span>
+      </div>
+
+      <div>
+        <h4 class="vl-footer__col-h">Platform</h4>
+        <ul class="vl-footer__list">
+          <li><a href="index.html#capabilities">Materials database</a></li>
+          <li><a href="index.html#clara">Clara AI</a></li>
+          <li><a href="index.html#capabilities">Formulation</a></li>
+          <li><a href="index.html#capabilities">Procurement</a></li>
+          <li><a href="index.html#capabilities">Manufacturing</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="vl-footer__col-h">Get in touch</h4>
+        <ul class="vl-footer__list">
+          <li><a href="contact.html?type=partnership">Pharma partnership</a></li>
+          <li><a href="contact.html?type=materials">Raw materials order</a></li>
+          <li><a href="contact.html?type=investor">Investor relations</a></li>
+          <li><a href="contact.html?type=supplier">Supplier onboarding</a></li>
+          <li><a href="contact.html">General enquiry</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="vl-footer__col-h">Company &amp; Legal</h4>
+        <p class="vl-footer__contact">
+          <a href="mailto:sales@tricorian.com">sales@tricorian.com</a><br>
+          Response within 24 hours
+        </p>
+        <ul class="vl-footer__list" style="margin-top:14px;">
+          <li><a href="{{TRICORIAN_HOME}}" rel="noopener">Tricorian Group</a></li>
+          <li><a href="privacy-policy.html">Privacy policy</a></li>
+          <li><a href="privacy-policy.html#cookies">Cookies</a></li>
+          <li><a href="privacy-policy.html#legal">Legal</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="vl-footer__bottom">
+      <span>&copy; {{YEAR}} Velenda · A Tricorian Group company. All rights reserved.</span>
+      <a href="{{TRICORIAN_HOME}}" class="vl-footer__back" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Return to Tricorian
+      </a>
+    </div>
+  </div>
+</footer>

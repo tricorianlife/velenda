@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Contact · Velenda</title>
+  <meta name="description" content="Talk to Velenda. Pharma partnerships, raw materials sourcing, investor relations and supplier onboarding. Sales responds within 24 hours.">
+  <meta name="theme-color" content="#0E1F3D">
+  <meta name="color-scheme" content="light">
+
+  <link rel="icon" type="image/png" href="assets/velenda-logo.png">
+  <link rel="apple-touch-icon" href="assets/velenda-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+  /* ============== PAGE-SPECIFIC: CONTACT ============== */
+
+  .vl-cp-hero {
+    position:relative; overflow:hidden; color:#fff;
+    background:
+      radial-gradient(60% 80% at 80% 0%, rgba(46,193,168,.32), transparent 60%),
+      radial-gradient(45% 60% at 15% 25%, rgba(77,191,232,.30), transparent 60%),
+      radial-gradient(50% 70% at 50% 100%, rgba(95,224,194,.20), transparent 60%),
+      linear-gradient(135deg, var(--vl-navy) 0%, var(--vl-navy-deep) 50%, #051028 100%);
+    padding:96px 0 88px;
+  }
+  .vl-cp-hero::before {
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:1;
+    background:radial-gradient(640px circle at var(--mx,50%) var(--my,30%), rgba(46,193,168,.18), transparent 50%);
+    transition:background .15s ease;
+  }
+  .vl-cp-hero__bg { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .vl-cp-hero__grid {
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(122,236,204,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(122,236,204,.08) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(ellipse at center, #000 30%, transparent 80%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 30%, transparent 80%);
+    animation:vlCpGridFlow 22s linear infinite;
+  }
+  @keyframes vlCpGridFlow { from { background-position:0 0; } to { background-position:0 48px; } }
+  .vl-cp-hero__halo-a, .vl-cp-hero__halo-b {
+    position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none;
+  }
+  .vl-cp-hero__halo-a { top:-180px; left:-120px;  width:520px; height:520px; background:radial-gradient(circle, rgba(46,193,168,.42), transparent 70%); animation:vlCpHaloDrift 22s ease-in-out infinite; }
+  .vl-cp-hero__halo-b { bottom:-220px; right:-140px; width:580px; height:580px; background:radial-gradient(circle, rgba(77,191,232,.36), transparent 70%); animation:vlCpHaloDrift 28s ease-in-out infinite reverse; }
+  @keyframes vlCpHaloDrift {
+    0%,100% { transform:translate(0,0) scale(1); }
+    50%     { transform:translate(40px,-30px) scale(1.12); }
+  }
+  .vl-cp-hero__particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .vl-cp-hero__particles span {
+    position:absolute; bottom:-10%;
+    width:4px; height:4px; border-radius:50%;
+    background:var(--vl-teal-bright);
+    box-shadow:0 0 10px rgba(95,224,194,.85);
+    opacity:.5;
+    animation:vlCpFloat linear infinite;
+  }
+  .vl-cp-hero__particles span:nth-child(1) { left:8%;  animation-duration:24s; animation-delay:-2s; }
+  .vl-cp-hero__particles span:nth-child(2) { left:22%; animation-duration:30s; animation-delay:-7s; width:3px; height:3px; }
+  .vl-cp-hero__particles span:nth-child(3) { left:38%; animation-duration:26s; animation-delay:-12s; }
+  .vl-cp-hero__particles span:nth-child(4) { left:54%; animation-duration:32s; animation-delay:-4s; width:5px; height:5px; }
+  .vl-cp-hero__particles span:nth-child(5) { left:68%; animation-duration:28s; animation-delay:-15s; }
+  .vl-cp-hero__particles span:nth-child(6) { left:82%; animation-duration:34s; animation-delay:-9s; width:3px; height:3px; }
+  .vl-cp-hero__particles span:nth-child(7) { left:14%; animation-duration:38s; animation-delay:-18s; background:var(--vl-sky); box-shadow:0 0 10px rgba(77,191,232,.85); }
+  .vl-cp-hero__particles span:nth-child(8) { left:74%; animation-duration:40s; animation-delay:-22s; background:var(--vl-mint); box-shadow:0 0 10px rgba(122,236,204,.85); }
+  @keyframes vlCpFloat {
+    from { bottom:-10%; opacity:0; }
+    10%  { opacity:.65; }
+    90%  { opacity:.45; }
+    to   { bottom:115%; opacity:0; }
+  }
+
+  .vl-cp-hero__inner { position:relative; z-index:2; max-width:880px; margin:0 auto; text-align:center; padding:0 24px; }
+  .vl-cp-hero__eyebrow {
+    display:inline-flex; align-items:center; gap:.55rem;
+    font-family:var(--vl-mono);
+    font-size:.72rem; letter-spacing:.25em; text-transform:uppercase;
+    color:var(--vl-teal-bright); font-weight:700;
+    padding:.5rem 1rem;
+    background:rgba(75,231,195,.10);
+    border:1px solid rgba(75,231,195,.30);
+    border-radius:999px;
+    margin-bottom:1.5rem;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+  }
+  .vl-cp-hero__eyebrow-dot { width:7px; height:7px; border-radius:50%; background:var(--vl-teal-bright); box-shadow:0 0 12px var(--vl-teal-bright); animation:vlPulse 2s infinite; }
+  .vl-cp-hero__h {
+    font-family:var(--vl-sans); font-weight:700;
+    letter-spacing:-.025em; line-height:1.04;
+    font-size:clamp(2.4rem, 5.4vw, 4.4rem);
+    margin:0 0 1.1rem;
+    color:#fff;
+  }
+  .vl-cp-hero__h em {
+    font-style:normal;
+    background:linear-gradient(135deg, var(--vl-mint) 0%, var(--vl-teal-bright) 45%, var(--vl-sky) 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    position:relative;
+  }
+  .vl-cp-hero__h em::after {
+    content:""; position:absolute; left:0; right:0; bottom:-.08em; height:3px;
+    background:linear-gradient(90deg, transparent, var(--vl-teal-bright), transparent);
+    transform-origin:center; transform:scaleX(0);
+    animation:vlCpUnderline 1.4s cubic-bezier(.23,1,.32,1) .8s forwards;
+  }
+  @keyframes vlCpUnderline { to { transform:scaleX(1); } }
+  .vl-cp-hero__lede {
+    font-size:1.15rem; line-height:1.6;
+    color:rgba(255,255,255,.78);
+    max-width:680px; margin:0 auto;
+  }
+  .vl-cp-hero__wave {
+    position:absolute; left:0; right:0; bottom:-1px; height:60px; z-index:2;
+  }
+  .vl-cp-hero__wave svg { width:100%; height:100%; display:block; }
+
+  /* === FORM SECTION === */
+  .vl-cp-section {
+    background:linear-gradient(180deg, #fff 0%, var(--vl-mint-pale) 100%);
+    padding:80px 0 96px;
+    position:relative;
+    overflow:hidden;
+  }
+  .vl-cp-section::before {
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.45;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='64' viewBox='0 0 56 64'><path d='M28 2 L52 16 L52 48 L28 62 L4 48 L4 16 Z' fill='none' stroke='%2326A688' stroke-width='1' opacity='.30'/></svg>");
+    background-size:56px 64px;
+    mask-image:radial-gradient(ellipse at center, #000 5%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 5%, transparent 75%);
+  }
+  .vl-cp-grid {
+    position:relative; z-index:1;
+    max-width:1240px; margin:0 auto;
+    padding:0 24px;
+    display:grid;
+    grid-template-columns:1fr 1.45fr;
+    gap:48px;
+    align-items:start;
+  }
+  @media (max-width:991.98px) {
+    .vl-cp-grid { grid-template-columns:1fr; gap:32px; }
+  }
+
+  /* Aside */
+  .vl-cp-aside {
+    position:sticky;
+    top:calc(var(--vl-header-h) + 24px);
+    background:rgba(255,255,255,.88);
+    -webkit-backdrop-filter:blur(16px) saturate(150%);
+    backdrop-filter:blur(16px) saturate(150%);
+    border:1px solid rgba(46,193,168,.20);
+    border-radius:22px;
+    padding:36px 32px;
+    box-shadow:0 22px 50px -10px rgba(14,31,61,.10);
+    overflow:hidden;
+  }
+  .vl-cp-aside::before {
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    padding:1px;
+    background:linear-gradient(135deg, rgba(46,193,168,.40), transparent 35%, transparent 65%, rgba(77,191,232,.40));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+  }
+  @media (max-width:991.98px) { .vl-cp-aside { position:static; } }
+
+  .vl-cp-aside__eyebrow {
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--vl-mono);
+    font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--vl-teal-deep); font-weight:700;
+    margin-bottom:14px;
+  }
+  .vl-cp-aside__eyebrow::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--vl-teal); box-shadow:0 0 10px rgba(46,193,168,.7); }
+  .vl-cp-aside__h {
+    font-family:var(--vl-sans); font-weight:700;
+    letter-spacing:-.015em; line-height:1.18;
+    font-size:1.55rem; color:var(--vl-navy);
+    margin:0 0 22px;
+  }
+  .vl-cp-steps { list-style:none; padding:0; margin:0 0 28px; display:flex; flex-direction:column; gap:18px; }
+  .vl-cp-step { display:flex; gap:14px; align-items:flex-start; }
+  .vl-cp-step__num {
+    flex-shrink:0;
+    width:38px; height:38px; border-radius:10px;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, var(--vl-mint-pale), var(--vl-mint-soft));
+    color:var(--vl-teal-deep);
+    font-family:var(--vl-mono); font-weight:700; font-size:.85rem;
+    box-shadow:0 6px 14px -6px rgba(46,193,168,.4);
+  }
+  .vl-cp-step__h {
+    font-family:var(--vl-sans); font-weight:700; font-size:1rem;
+    color:var(--vl-navy); margin:0 0 4px; line-height:1.25;
+  }
+  .vl-cp-step__p {
+    color:var(--vl-mute); font-size:.92rem; line-height:1.55; margin:0;
+  }
+
+  .vl-cp-promise {
+    margin-top:8px; padding:18px 20px;
+    background:linear-gradient(135deg, rgba(46,193,168,.08), rgba(77,191,232,.08));
+    border:1px solid rgba(46,193,168,.22);
+    border-radius:14px;
+  }
+  .vl-cp-promise__h {
+    font-family:var(--vl-mono);
+    font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--vl-teal-deep); font-weight:700;
+    margin-bottom:8px;
+  }
+  .vl-cp-promise__t {
+    color:var(--vl-navy); font-size:.95rem; line-height:1.55; margin:0;
+    font-weight:500;
+  }
+  .vl-cp-promise__email {
+    display:inline-flex; align-items:center; gap:6px;
+    margin-top:10px;
+    color:var(--vl-teal-deep); text-decoration:none;
+    font-family:var(--vl-mono); font-size:.85rem; font-weight:700;
+    border-bottom:1px solid rgba(46,193,168,.35);
+    padding-bottom:1px;
+  }
+  .vl-cp-promise__email:hover { color:var(--vl-navy); border-color:var(--vl-navy); }
+
+  .vl-cp-trust {
+    margin-top:22px; padding-top:20px;
+    border-top:1px dashed rgba(46,193,168,.20);
+    display:flex; flex-wrap:wrap; gap:14px 20px;
+    font-family:var(--vl-mono);
+    font-size:.7rem; letter-spacing:.10em; text-transform:uppercase;
+    color:var(--vl-mute);
+  }
+  .vl-cp-trust span { display:inline-flex; align-items:center; gap:6px; }
+  .vl-cp-trust span::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--vl-teal); }
+
+  /* Form panel */
+  .vl-cp-form {
+    background:#fff;
+    border:1px solid rgba(46,193,168,.16);
+    border-radius:22px;
+    padding:38px 36px;
+    box-shadow:0 26px 60px -16px rgba(14,31,61,.12);
+    position:relative;
+    overflow:hidden;
+  }
+  .vl-cp-form::before {
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    padding:1px;
+    background:linear-gradient(135deg, rgba(46,193,168,.25), transparent 30%, transparent 70%, rgba(77,191,232,.25));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+  }
+  @media (max-width:599.98px) { .vl-cp-form { padding:28px 22px; } }
+
+  .vl-cp-form__h {
+    font-family:var(--vl-sans); font-weight:700;
+    letter-spacing:-.015em; line-height:1.2;
+    font-size:1.55rem; color:var(--vl-navy);
+    margin:0 0 6px;
+  }
+  .vl-cp-form__sub {
+    color:var(--vl-mute); font-size:.98rem; line-height:1.55;
+    margin:0 0 28px;
+  }
+
+  .vl-cp-section-h {
+    font-family:var(--vl-mono);
+    font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--vl-teal-deep); font-weight:700;
+    margin:8px 0 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .vl-cp-section-h::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--vl-teal); box-shadow:0 0 8px rgba(46,193,168,.7); }
+  .vl-cp-section-h::after { content:""; flex:1; height:1px; background:linear-gradient(90deg, rgba(46,193,168,.30), transparent); }
+
+  .vl-cp-divider {
+    margin:28px 0 22px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(46,193,168,.25) 30%, rgba(77,191,232,.25) 70%, transparent);
+  }
+
+  .vl-cp-submit {
+    margin-top:18px; padding-top:24px;
+    border-top:1px dashed rgba(46,193,168,.20);
+  }
+
+  .vl-cp-result { margin-top:20px; }
+  .vl-cp-result.is-hidden { display:none; }
+
+  .vl-spin-row { display:flex; justify-content:center; padding:18px 0; }
+  .vl-spin-row.is-hidden { display:none; }
+
+  .vl-turnstile { margin:16px 0 8px; min-height:65px; }
+
+  /* Inline radio (yes / no) */
+  .vl-radio-row {
+    display:inline-flex; gap:8px; flex-wrap:wrap;
+  }
+  .vl-radio { position:relative; }
+  .vl-radio input { position:absolute; opacity:0; pointer-events:none; }
+  .vl-radio label {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 16px; border-radius:10px;
+    background:#fff; border:1.5px solid #e2e8f0;
+    cursor:pointer;
+    font-size:.92rem; color:var(--vl-navy); font-weight:600;
+    transition:border-color .2s ease, background .2s ease, color .2s ease;
+  }
+  .vl-radio label:hover { border-color:rgba(46,193,168,.40); }
+  .vl-radio input:checked + label {
+    border-color:var(--vl-teal);
+    background:linear-gradient(135deg, rgba(230,249,244,.6), #fff);
+    color:var(--vl-teal-deep);
+  }
+  </style>
+</head>
+<body>
+  <a class="vl-skip" href="#main">Skip to content</a>
+  <div class="vl-grain" aria-hidden="true"></div>
+  <div class="vl-cursor" aria-hidden="true"></div>
+
+  <!-- Header (injected by main.js) -->
+  <div id="vl-header-slot"></div>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="vl-cp-hero" id="vlCpHero">
+      <div class="vl-cp-hero__bg">
+        <div class="vl-cp-hero__grid"></div>
+        <div class="vl-cp-hero__halo-a"></div>
+        <div class="vl-cp-hero__halo-b"></div>
+        <div class="vl-cp-hero__particles" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="vl-cp-hero__inner vl-reveal">
+        <span class="vl-cp-hero__eyebrow">
+          <span class="vl-cp-hero__eyebrow-dot"></span>
+          Get in touch
+        </span>
+        <h1 class="vl-cp-hero__h">
+          Tell us what you need.<br>
+          <em>We respond within 24 hours.</em>
+        </h1>
+        <p class="vl-cp-hero__lede">
+          Pharma partnerships and pilots. Raw materials sourcing. Investor conversations
+          for our matched funding round. Suppliers ready to onboard. Pick the path that
+          fits and our team will route it.
+        </p>
+      </div>
+      <div class="vl-cp-hero__wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+          <path d="M0,30 C360,60 720,0 1440,30 L1440,60 L0,60 Z" fill="#ffffff"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section class="vl-cp-section">
+      <div class="vl-cp-grid">
+
+        <!-- Aside -->
+        <aside class="vl-cp-aside vl-reveal">
+          <span class="vl-cp-aside__eyebrow">How we work with you</span>
+          <h2 class="vl-cp-aside__h">A short, clear path from first message to first decision.</h2>
+
+          <ol class="vl-cp-steps">
+            <li class="vl-cp-step">
+              <span class="vl-cp-step__num">01</span>
+              <div>
+                <h3 class="vl-cp-step__h">You tell us what you need</h3>
+                <p class="vl-cp-step__p">Pick the path that matches your role. The form adapts so you only fill out what is relevant.</p>
+              </div>
+            </li>
+            <li class="vl-cp-step">
+              <span class="vl-cp-step__num">02</span>
+              <div>
+                <h3 class="vl-cp-step__h">We respond within 24 hours</h3>
+                <p class="vl-cp-step__p">A real human from sales replies, not a queue ticket. We confirm we have everything we need to move.</p>
+              </div>
+            </li>
+            <li class="vl-cp-step">
+              <span class="vl-cp-step__num">03</span>
+              <div>
+                <h3 class="vl-cp-step__h">We move to a call, demo or sourcing brief</h3>
+                <p class="vl-cp-step__p">Pharma partners get a Velenda walkthrough. Buyers get a quote. Investors get a deck. Suppliers get an onboarding plan.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="vl-cp-promise">
+            <div class="vl-cp-promise__h">Direct line</div>
+            <p class="vl-cp-promise__t">Prefer plain email? Send anything to our sales team and the same person reads it.</p>
+            <a href="mailto:sales@tricorian.com" class="vl-cp-promise__email">
+              sales@tricorian.com
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="vl-cp-trust">
+            <span>Australian based</span>
+            <span>Privacy Act 1988</span>
+            <span>Pharma operators</span>
+          </div>
+        </aside>
+
+        <!-- Form -->
+        <div class="vl-cp-form vl-reveal" data-delay="1">
+          <h2 class="vl-cp-form__h">Start the conversation</h2>
+          <p class="vl-cp-form__sub">Choose the path that best describes you, then fill in the rest. Required fields are marked.</p>
+
+          <form id="contact-form" novalidate>
+
+            <!-- Mode selector (premium card grid) -->
+            <fieldset class="vl-modes" role="radiogroup" aria-label="What brings you to Velenda">
+
+              <div class="vl-modes__opt">
+                <input type="radio" name="form_type" id="mode-general" value="general" checked>
+                <label for="mode-general">
+                  <span class="vl-modes__icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  </span>
+                  <span class="vl-modes__title">General enquiry</span>
+                  <span class="vl-modes__desc">Anything else, or you are not sure where to start.</span>
+                  <span class="vl-modes__check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                </label>
+              </div>
+
+              <div class="vl-modes__opt">
+                <input type="radio" name="form_type" id="mode-partnership" value="partnership">
+                <label for="mode-partnership">
+                  <span class="vl-modes__icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 3v6l-5 9a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3l-5-9V3"/>
+                      <path d="M8 3h8"/>
+                    </svg>
+                  </span>
+                  <span class="vl-modes__title">Pharma partnership</span>
+                  <span class="vl-modes__desc">Pilot Velenda inside your operations. Includes a live demo.</span>
+                  <span class="vl-modes__check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                </label>
+              </div>
+
+              <div class="vl-modes__opt">
+                <input type="radio" name="form_type" id="mode-materials" value="materials">
+                <label for="mode-materials">
+                  <span class="vl-modes__icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                      <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                  </span>
+                  <span class="vl-modes__title">Raw materials order</span>
+                  <span class="vl-modes__desc">Source materials through our procurement desk.</span>
+                  <span class="vl-modes__check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                </label>
+              </div>
+
+              <div class="vl-modes__opt">
+                <input type="radio" name="form_type" id="mode-investor" value="investor">
+                <label for="mode-investor">
+                  <span class="vl-modes__icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                      <polyline points="16 7 22 7 22 13"/>
+                    </svg>
+                  </span>
+                  <span class="vl-modes__title">Investor relations</span>
+                  <span class="vl-modes__desc">Matched funding round to accelerate Velenda and Clara AI.</span>
+                  <span class="vl-modes__check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                </label>
+              </div>
+
+              <div class="vl-modes__opt">
+                <input type="radio" name="form_type" id="mode-supplier" value="supplier">
+                <label for="mode-supplier">
+                  <span class="vl-modes__icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 7h13v10H3z"/>
+                      <path d="M16 10h5l-2-3h-3"/>
+                      <circle cx="6.5" cy="17.5" r="2.5"/>
+                      <circle cx="17.5" cy="17.5" r="2.5"/>
+                    </svg>
+                  </span>
+                  <span class="vl-modes__title">Supplier onboarding</span>
+                  <span class="vl-modes__desc">List your materials on Velenda. Includes a platform demo.</span>
+                  <span class="vl-modes__check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                </label>
+              </div>
+
+            </fieldset>
+
+            <!-- Common fields -->
+            <h3 class="vl-cp-section-h">About you</h3>
+
+            <div class="vl-row">
+              <div class="vl-field">
+                <label class="vl-label" for="cf-first">First name <span class="vl-req">*</span></label>
+                <input class="vl-input" id="cf-first" name="first_name" type="text" autocomplete="given-name" required>
+              </div>
+              <div class="vl-field">
+                <label class="vl-label" for="cf-last">Last name <span class="vl-req">*</span></label>
+                <input class="vl-input" id="cf-last" name="last_name" type="text" autocomplete="family-name" required>
+              </div>
+            </div>
+
+            <div class="vl-row">
+              <div class="vl-field">
+                <label class="vl-label" for="cf-email">Work email <span class="vl-req">*</span></label>
+                <input class="vl-input" id="cf-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="vl-field">
+                <label class="vl-label" for="cf-occupation">Role / title</label>
+                <input class="vl-input" id="cf-occupation" name="occupation" type="text" autocomplete="organization-title">
+              </div>
+            </div>
+
+            <div class="vl-row">
+              <div class="vl-field">
+                <label class="vl-label" for="cf-company">Company / organisation <span class="vl-req">*</span></label>
+                <input class="vl-input" id="cf-company" name="company" type="text" autocomplete="organization" required>
+              </div>
+              <div class="vl-field">
+                <label class="vl-label" for="cf-location">Country / location <span class="vl-req">*</span></label>
+                <input class="vl-input" id="cf-location" name="location" type="text" autocomplete="country-name" placeholder="e.g. Sydney, Australia" required>
+              </div>
+            </div>
+
+            <div class="vl-cp-divider"></div>
+
+            <!-- ============== MODE: GENERAL ============== -->
+            <div class="vl-mode-panel is-active" data-mode="general">
+              <h3 class="vl-cp-section-h">Your message</h3>
+
+              <div class="vl-field">
+                <label class="vl-label" for="cf-subject">Subject</label>
+                <input class="vl-input" id="cf-subject" name="subject" type="text" placeholder="What is this about?">
+              </div>
+
+              <div class="vl-field">
+                <label class="vl-label" for="cf-message">Message <span class="vl-req">*</span></label>
+                <textarea class="vl-textarea" id="cf-message" name="message" placeholder="Tell us a little about what you are working on, and what you need from us." data-required-when="general"></textarea>
+              </div>
+            </div>
+
+            <!-- ============== MODE: PHARMA PARTNERSHIP ============== -->
+            <div class="vl-mode-panel" data-mode="partnership">
+              <h3 class="vl-cp-section-h">About your operation</h3>
+
+              <div class="vl-row">
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-pharma-type">Company type</label>
+                  <select class="vl-select" id="cf-pharma-type" name="pharma_type">
+                    <option value="">Select one</option>
+                    <option>Originator / innovator pharma</option>
+                    <option>Generics manufacturer</option>
+                    <option>OTC / consumer health</option>
+                    <option>CDMO / contract manufacturer</option>
+                    <option>Biotech</option>
+                    <option>Veterinary / animal health</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-pharma-spend">Annual raw materials spend</label>
+                  <select class="vl-select" id="cf-pharma-spend" name="pharma_spend">
+                    <option value="">Select range</option>
+                    <option>Under USD 1M</option>
+                    <option>USD 1M to 5M</option>
+                    <option>USD 5M to 20M</option>
+                    <option>USD 20M to 100M</option>
+                    <option>USD 100M+</option>
+                    <option>Prefer not to say</option>
+                  </select>
+                </div>
+              </div>
+
+              <h3 class="vl-cp-section-h">Demo preferences</h3>
+              <p class="vl-help" style="margin:-6px 0 14px;">Pick a date and time that suits you. We will confirm or propose the closest available slot.</p>
+
+              <div class="vl-row--3 vl-row">
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-demo-date">Preferred date <span class="vl-req">*</span></label>
+                  <input class="vl-input" id="cf-demo-date" name="demo_date" type="date" data-required-when="partnership">
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-demo-time">Preferred time <span class="vl-req">*</span></label>
+                  <input class="vl-input" id="cf-demo-time" name="demo_time" type="time" data-required-when="partnership">
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-demo-tz">Time zone <span class="vl-req">*</span></label>
+                  <select class="vl-select" id="cf-demo-tz" name="demo_tz" data-required-when="partnership">
+                    <option value="">Select</option>
+                    <option>AEDT (Sydney)</option>
+                    <option>AEST (Sydney)</option>
+                    <option>SGT (Singapore)</option>
+                    <option>IST (Mumbai)</option>
+                    <option>CET (Frankfurt)</option>
+                    <option>BST / GMT (London)</option>
+                    <option>EDT / EST (New York)</option>
+                    <option>PDT / PST (San Francisco)</option>
+                    <option>Other (note in message)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="vl-row">
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-demo-attendees">Number of attendees</label>
+                  <input class="vl-input" id="cf-demo-attendees" name="demo_attendees" type="number" min="1" max="50" value="1">
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label">Decision stage</label>
+                  <div class="vl-radio-row">
+                    <span class="vl-radio">
+                      <input type="radio" name="pharma_stage" id="ps-explore" value="exploring">
+                      <label for="ps-explore">Exploring</label>
+                    </span>
+                    <span class="vl-radio">
+                      <input type="radio" name="pharma_stage" id="ps-eval" value="evaluating">
+                      <label for="ps-eval">Actively evaluating</label>
+                    </span>
+                    <span class="vl-radio">
+                      <input type="radio" name="pharma_stage" id="ps-budget" value="budgeted">
+                      <label for="ps-budget">Budget approved</label>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="vl-field">
+                <label class="vl-label" for="cf-pharma-notes">What would you like to see?</label>
+                <textarea class="vl-textarea" id="cf-pharma-notes" name="pharma_notes" placeholder="Use cases, current pain points, materials you would like Clara to model, or anything else useful for the demo."></textarea>
+              </div>
+            </div>
+
+            <!-- ============== MODE: RAW MATERIALS ============== -->
+            <div class="vl-mode-panel" data-mode="materials">
+              <h3 class="vl-cp-section-h">Materials</h3>
+              <p class="vl-help" style="margin:-6px 0 14px;">Material name and CAS number are required for each line. Add as many materials as you need.</p>
+
+              <div id="vlMaterials"></div>
+
+              <button type="button" class="vl-btn vl-btn--ghost" id="vlAddMaterial" style="margin-top:6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                Add another material
+              </button>
+
+              <h3 class="vl-cp-section-h" style="margin-top:24px;">Other notes</h3>
+              <div class="vl-field">
+                <label class="vl-label" for="cf-mat-notes">Anything else our buyers should know?</label>
+                <textarea class="vl-textarea" id="cf-mat-notes" name="materials_notes" placeholder="Quality requirements, regulatory constraints, target landed cost, preferred suppliers to avoid, etc."></textarea>
+              </div>
+            </div>
+
+            <!-- Materials repeater template -->
+            <template id="vlMaterialTpl">
+              <div class="vl-material" data-index="__INDEX__">
+                <div class="vl-material__head">
+                  <span>Material #__N__</span>
+                  <button type="button" class="vl-material__remove" aria-label="Remove this material">Remove</button>
+                </div>
+                <div class="vl-row">
+                  <div class="vl-field">
+                    <label class="vl-label">Material name <span class="vl-req">*</span></label>
+                    <input class="vl-input" name="materials[__INDEX__][name]" type="text" placeholder="e.g. Paracetamol API" data-mat-required>
+                  </div>
+                  <div class="vl-field">
+                    <label class="vl-label">CAS number <span class="vl-req">*</span></label>
+                    <input class="vl-input" name="materials[__INDEX__][cas]" type="text" placeholder="e.g. 103-90-2" data-mat-required>
+                  </div>
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label">Specifications</label>
+                  <textarea class="vl-textarea" name="materials[__INDEX__][specs]" style="min-height:90px;" placeholder="Purity, grade (USP, EP, BP, JP), particle size, polymorph, residual solvents, etc."></textarea>
+                </div>
+                <div class="vl-row--3 vl-row">
+                  <div class="vl-field">
+                    <label class="vl-label">Quantity</label>
+                    <input class="vl-input" name="materials[__INDEX__][quantity]" type="text" placeholder="e.g. 500 kg">
+                  </div>
+                  <div class="vl-field">
+                    <label class="vl-label">Shipping type</label>
+                    <select class="vl-select" name="materials[__INDEX__][shipping]">
+                      <option value="">Select</option>
+                      <option>Standard ground</option>
+                      <option>Express courier</option>
+                      <option>Air freight</option>
+                      <option>Sea freight</option>
+                      <option>Refrigerated (cold chain)</option>
+                      <option>Frozen</option>
+                      <option>Hazmat / dangerous goods</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="vl-field">
+                    <label class="vl-label">Required by</label>
+                    <input class="vl-input" name="materials[__INDEX__][required_by]" type="date">
+                  </div>
+                </div>
+              </div>
+            </template>
+
+            <!-- ============== MODE: INVESTOR ============== -->
+            <div class="vl-mode-panel" data-mode="investor">
+              <h3 class="vl-cp-section-h">About the firm</h3>
+
+              <div class="vl-row">
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-inv-firm">Firm / fund name <span class="vl-req">*</span></label>
+                  <input class="vl-input" id="cf-inv-firm" name="investor_firm" type="text" placeholder="e.g. Acme Capital" data-required-when="investor">
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-inv-type">Investor type</label>
+                  <select class="vl-select" id="cf-inv-type" name="investor_type">
+                    <option value="">Select one</option>
+                    <option>Venture capital</option>
+                    <option>Growth / private equity</option>
+                    <option>Strategic / corporate</option>
+                    <option>Family office</option>
+                    <option>Angel / individual</option>
+                    <option>Sovereign / government matched fund</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="vl-row">
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-inv-stage">Stage of interest</label>
+                  <select class="vl-select" id="cf-inv-stage" name="investor_stage">
+                    <option value="">Select</option>
+                    <option>Pre-seed / seed</option>
+                    <option>Series A</option>
+                    <option>Series B+</option>
+                    <option>Strategic / partnership</option>
+                    <option>Open</option>
+                  </select>
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-inv-cheque">Indicative cheque size</label>
+                  <select class="vl-select" id="cf-inv-cheque" name="investor_cheque">
+                    <option value="">Select range</option>
+                    <option>Under USD 250k</option>
+                    <option>USD 250k to 1M</option>
+                    <option>USD 1M to 5M</option>
+                    <option>USD 5M to 20M</option>
+                    <option>USD 20M+</option>
+                    <option>Prefer to discuss</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="vl-row">
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-inv-region">Geographic focus</label>
+                  <input class="vl-input" id="cf-inv-region" name="investor_region" type="text" placeholder="e.g. APAC, global, healthtech only">
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label">Have we spoken before?</label>
+                  <div class="vl-radio-row">
+                    <span class="vl-radio">
+                      <input type="radio" name="investor_prior" id="ip-yes" value="yes">
+                      <label for="ip-yes">Yes</label>
+                    </span>
+                    <span class="vl-radio">
+                      <input type="radio" name="investor_prior" id="ip-no" value="no" checked>
+                      <label for="ip-no">No</label>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="vl-field">
+                <label class="vl-label" for="cf-inv-notes">Notes</label>
+                <textarea class="vl-textarea" id="cf-inv-notes" name="investor_notes" placeholder="Thesis fit, portfolio overlap, decision timing, references you would like to speak to, anything else you would like us to know."></textarea>
+              </div>
+
+              <div class="vl-cp-promise" style="margin-top:14px;">
+                <div class="vl-cp-promise__h">Matched funding</div>
+                <p class="vl-cp-promise__t">Velenda is currently raising a matched funding round to accelerate Clara AI development and platform rollout. We share the deck under NDA after a short intro call.</p>
+              </div>
+            </div>
+
+            <!-- ============== MODE: SUPPLIER ============== -->
+            <div class="vl-mode-panel" data-mode="supplier">
+              <h3 class="vl-cp-section-h">About your business</h3>
+
+              <div class="vl-row">
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-sup-type">Company type</label>
+                  <select class="vl-select" id="cf-sup-type" name="supplier_type">
+                    <option value="">Select one</option>
+                    <option>Manufacturer (API)</option>
+                    <option>Manufacturer (excipient)</option>
+                    <option>Manufacturer (intermediate)</option>
+                    <option>Distributor / trader</option>
+                    <option>Agent / sales rep</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-sup-hq">Headquartered in</label>
+                  <input class="vl-input" id="cf-sup-hq" name="supplier_hq" type="text" placeholder="Country">
+                </div>
+              </div>
+
+              <div class="vl-row">
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-sup-regions">Regions you serve</label>
+                  <input class="vl-input" id="cf-sup-regions" name="supplier_regions" type="text" placeholder="e.g. APAC, EU, North America">
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-sup-certs">Certifications</label>
+                  <input class="vl-input" id="cf-sup-certs" name="supplier_certs" type="text" placeholder="e.g. GMP, ISO 9001, USP, EP, FDA-registered, CEP, DMF">
+                </div>
+              </div>
+
+              <div class="vl-field">
+                <label class="vl-label" for="cf-sup-materials">Key materials / categories you supply</label>
+                <textarea class="vl-textarea" id="cf-sup-materials" name="supplier_materials" placeholder="Product families, therapeutic areas, key APIs or excipients, signature capabilities."></textarea>
+              </div>
+
+              <div class="vl-field">
+                <label class="vl-label" for="cf-sup-volumes">Typical batch / volume capability</label>
+                <input class="vl-input" id="cf-sup-volumes" name="supplier_volumes" type="text" placeholder="e.g. 10 kg up to 5 MT per month">
+              </div>
+
+              <h3 class="vl-cp-section-h" style="margin-top:24px;">Optional: book a demo</h3>
+              <p class="vl-help" style="margin:-6px 0 14px;">If you would like to see Velenda before discussing onboarding, pick a preferred date.</p>
+
+              <div class="vl-row">
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-sup-demo-date">Preferred demo date</label>
+                  <input class="vl-input" id="cf-sup-demo-date" name="supplier_demo_date" type="date">
+                </div>
+                <div class="vl-field">
+                  <label class="vl-label" for="cf-sup-demo-time">Preferred time</label>
+                  <input class="vl-input" id="cf-sup-demo-time" name="supplier_demo_time" type="time">
+                </div>
+              </div>
+
+              <div class="vl-field">
+                <label class="vl-label" for="cf-sup-notes">Anything else?</label>
+                <textarea class="vl-textarea" id="cf-sup-notes" name="supplier_notes" placeholder="What would help our supplier team prepare for the conversation."></textarea>
+              </div>
+            </div>
+
+            <!-- Turnstile -->
+            <div class="vl-turnstile" id="vlTurnstile"></div>
+
+            <!-- Submit -->
+            <div class="vl-cp-submit">
+              <button type="submit" class="vl-btn w-100" id="vlSubmit">
+                <span data-submit-label>Send message</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              <div class="vl-spin-row is-hidden" id="vlSpinner">
+                <div class="vl-loader" aria-label="Sending"></div>
+              </div>
+
+              <div class="vl-cp-result is-hidden vl-alert vl-alert--success" id="vlOk" role="status">
+                <span class="vl-alert__icon">&#10003;</span>
+                <div>
+                  <strong>Message sent.</strong>
+                  Thank you. Our sales team will reply within 24 hours from <a href="mailto:sales@tricorian.com">sales@tricorian.com</a>.
+                </div>
+              </div>
+              <div class="vl-cp-result is-hidden vl-alert vl-alert--error" id="vlErr" role="alert">
+                <span class="vl-alert__icon">!</span>
+                <div>
+                  <strong>Could not send.</strong>
+                  <span id="vlErrMsg">Please try again, or email us directly at <a href="mailto:sales@tricorian.com">sales@tricorian.com</a>.</span>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer (injected by main.js) -->
+  <div id="vl-footer-slot"></div>
+
+  <!-- Cloudflare Turnstile (same site key as Tricorian; swap if needed) -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="js/main.js"></script>
+  <script>
+  /* Hero cursor spotlight */
+  (function () {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(pointer:coarse)').matches) return;
+    var hero = document.getElementById('vlCpHero');
+    if (!hero) return;
+    var raf;
+    hero.addEventListener('mousemove', function (e) {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function () {
+        var r = hero.getBoundingClientRect();
+        hero.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        hero.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
