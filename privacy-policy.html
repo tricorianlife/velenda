@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Privacy Policy — Velenda</title>
+  <meta name="description" content="Velenda privacy policy: how we collect, use, store and protect personal information. Includes our quality policy, cookies policy and legal statement.">
+  <meta name="theme-color" content="#0E1F3D">
+  <meta name="color-scheme" content="light">
+
+  <link rel="icon" type="image/png" href="assets/velenda-logo.png">
+  <link rel="apple-touch-icon" href="assets/velenda-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+  /* ============== PAGE-SPECIFIC: PRIVACY ============== */
+
+  .vl-legal-hero {
+    position:relative; overflow:hidden;
+    background:linear-gradient(180deg,#fff 0%,var(--vl-mint-pale) 100%);
+    padding:96px 0 56px;
+  }
+  .vl-legal-hero__bg { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .vl-legal-hero__grid {
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(51,63,112,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(51,63,112,.06) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+  .vl-legal-hero__glow-a, .vl-legal-hero__glow-b { position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; }
+  .vl-legal-hero__glow-a { top:-180px; left:-120px;  width:520px; height:520px; background:radial-gradient(circle, rgba(14,31,61,.25), transparent 70%); }
+  .vl-legal-hero__glow-b { bottom:-200px; right:-120px; width:520px; height:520px; background:radial-gradient(circle, rgba(46,193,168,.28), transparent 70%); }
+  .vl-legal-hero .container { position:relative; z-index:2; }
+
+  .vl-legal-meta {
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--vl-mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--vl-teal-deep); font-weight:700;
+    padding:6px 14px; border-radius:999px;
+    background:rgba(46,193,168,.10);
+    border:1px solid rgba(46,193,168,.28);
+  }
+  .vl-legal-meta__dot { width:7px; height:7px; border-radius:50%; background:var(--vl-teal); box-shadow:0 0 10px rgba(46,193,168,.7); animation:vlPulse 2s infinite; }
+
+  .vl-legal-title {
+    font-family:var(--vl-sans); font-weight:700;
+    letter-spacing:-.02em; line-height:1.08;
+    font-size:clamp(2rem,4vw,3.4rem);
+    color:var(--vl-navy); margin:18px 0 14px;
+    max-width:880px;
+  }
+  .vl-legal-lede { color:var(--vl-mute); font-size:1.1rem; line-height:1.6; max-width:780px; }
+
+  /* Layout */
+  .vl-legal-shell {
+    position:relative;
+    padding:64px 0 96px;
+    background:#fff;
+  }
+  .vl-legal-shell::before {
+    content:""; position:absolute; left:0; right:0; top:0; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(46,193,168,.45) 30%, rgba(77,191,232,.45) 70%, transparent);
+  }
+  .vl-legal-grid {
+    display:grid;
+    grid-template-columns:260px 1fr;
+    gap:56px;
+    align-items:start;
+  }
+  @media (max-width:991.98px) {
+    .vl-legal-grid { grid-template-columns:1fr; gap:32px; }
+  }
+
+  /* Sticky TOC */
+  .vl-legal-toc {
+    position:sticky; top:calc(var(--vl-header-h) + 24px);
+    background:rgba(255,255,255,.85);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--vl-line);
+    border-radius:14px;
+    padding:22px 22px 18px;
+    box-shadow:0 14px 30px rgba(14,31,61,.06);
+  }
+  @media (max-width:991.98px) {
+    .vl-legal-toc { position:static; }
+  }
+  .vl-legal-toc__h {
+    font-family:var(--vl-mono);
+    font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--vl-teal-deep); font-weight:700;
+    margin:0 0 14px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .vl-legal-toc__h::before {
+    content:""; width:6px; height:6px; border-radius:50%;
+    background:var(--vl-teal); box-shadow:0 0 8px rgba(46,193,168,.7);
+  }
+  .vl-legal-toc__list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:4px; }
+  .vl-legal-toc__list a {
+    display:block; padding:8px 12px;
+    font-size:.92rem; font-weight:500;
+    color:var(--vl-navy); text-decoration:none;
+    border-radius:8px; border-left:2px solid transparent;
+    transition:background .2s ease, border-color .2s ease, color .2s ease, padding-left .2s ease;
+  }
+  .vl-legal-toc__list a:hover { background:rgba(46,193,168,.08); color:var(--vl-teal-deep); }
+  .vl-legal-toc__list a.is-active {
+    background:rgba(46,193,168,.10);
+    border-left-color:var(--vl-teal);
+    color:var(--vl-teal-deep); font-weight:600;
+    padding-left:16px;
+  }
+
+  /* Sections */
+  .vl-legal-section {
+    position:relative;
+    background:#fff;
+    border:1px solid var(--vl-line);
+    border-radius:18px;
+    padding:38px 40px;
+    margin-bottom:24px;
+    box-shadow:0 10px 28px rgba(14,31,61,.04);
+    overflow:hidden;
+  }
+  .vl-legal-section::before {
+    content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:linear-gradient(180deg, var(--vl-teal), var(--vl-sky));
+    border-radius:3px 0 0 3px;
+    opacity:.85;
+  }
+  .vl-legal-section::after {
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    padding:1px;
+    background:linear-gradient(135deg, rgba(46,193,168,.18), transparent 35%, transparent 65%, rgba(77,191,232,.18));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+  }
+  @media (max-width:599.98px) {
+    .vl-legal-section { padding:28px 22px; }
+  }
+
+  .vl-legal-section__num {
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--vl-mono);
+    font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--vl-teal-deep); font-weight:700;
+    margin-bottom:8px;
+  }
+  .vl-legal-section h2 {
+    font-family:var(--vl-sans); font-weight:700;
+    color:var(--vl-navy); letter-spacing:-.01em;
+    font-size:clamp(1.5rem,2.4vw,1.9rem); line-height:1.2;
+    margin:4px 0 18px;
+    scroll-margin-top:calc(var(--vl-header-h) + 24px);
+  }
+  .vl-legal-section h3 {
+    font-family:var(--vl-sans); font-weight:700;
+    color:var(--vl-navy);
+    font-size:1.06rem; letter-spacing:-.005em;
+    margin:24px 0 10px;
+  }
+  .vl-legal-section p, .vl-legal-section li {
+    color:#1f2851; font-size:.98rem; line-height:1.7;
+  }
+  .vl-legal-section p { margin:0 0 14px; }
+  .vl-legal-section ul { padding-left:22px; margin:0 0 14px; }
+  .vl-legal-section ul li { margin-bottom:6px; }
+  .vl-legal-section a { color:var(--vl-teal-deep); text-decoration:none; border-bottom:1px solid rgba(46,193,168,.35); transition:color .2s ease, border-color .2s ease; }
+  .vl-legal-section a:hover { color:var(--vl-navy); border-bottom-color:var(--vl-navy); }
+
+  .vl-legal-callout {
+    margin:18px 0 6px;
+    padding:16px 20px;
+    border-radius:12px;
+    background:linear-gradient(135deg, rgba(46,193,168,.06), rgba(77,191,232,.06));
+    border:1px solid rgba(46,193,168,.20);
+    color:var(--vl-navy);
+    font-size:.95rem; line-height:1.6;
+  }
+  .vl-legal-callout strong { color:var(--vl-teal-deep); }
+
+  .vl-legal-foot {
+    margin-top:36px;
+    padding-top:20px;
+    border-top:1px dashed var(--vl-line);
+    font-family:var(--vl-mono);
+    font-size:.74rem; letter-spacing:.06em;
+    color:var(--vl-mute);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  </style>
+</head>
+<body>
+  <a class="vl-skip" href="#main">Skip to content</a>
+  <div class="vl-grain" aria-hidden="true"></div>
+  <div class="vl-cursor" aria-hidden="true"></div>
+
+  <!-- Header (injected by main.js) -->
+  <div id="vl-header-slot"></div>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="vl-legal-hero">
+      <div class="vl-legal-hero__bg">
+        <div class="vl-legal-hero__grid"></div>
+        <div class="vl-hex"></div>
+        <div class="vl-particles"></div>
+        <div class="vl-aurora"></div>
+        <div class="vl-scanline"></div>
+        <div class="vl-legal-hero__glow-a"></div>
+        <div class="vl-legal-hero__glow-b"></div>
+      </div>
+      <div class="container">
+        <span class="vl-legal-meta">
+          <span class="vl-legal-meta__dot"></span>
+          Effective April 2026
+        </span>
+        <h1 class="vl-legal-title">Privacy Policy</h1>
+        <p class="vl-legal-lede">
+          How Velenda collects, uses, stores and protects personal information across our
+          platform, our procurement service and the people we work with. Read alongside our
+          quality, cookies and legal statements below.
+        </p>
+      </div>
+    </section>
+
+    <!-- BODY -->
+    <section class="vl-legal-shell">
+      <div class="container">
+        <div class="vl-legal-grid">
+
+          <!-- TOC -->
+          <aside class="vl-legal-toc" aria-label="On this page">
+            <h2 class="vl-legal-toc__h">On this page</h2>
+            <ul class="vl-legal-toc__list" id="vlToc">
+              <li><a href="#about">1. About these policies</a></li>
+              <li><a href="#quality">2. Quality policy</a></li>
+              <li><a href="#privacy">3. Privacy statement</a></li>
+              <li><a href="#cookies">4. Cookies policy</a></li>
+              <li><a href="#legal">5. Legal statement</a></li>
+            </ul>
+          </aside>
+
+          <div>
+
+            <!-- 1. ABOUT THESE POLICIES -->
+            <article id="about" class="vl-legal-section vl-reveal">
+              <span class="vl-legal-section__num">Section 01</span>
+              <h2>About these policies</h2>
+              <p>
+                Velenda is operated by Tricorian Pty Ltd and its related entities (together,
+                <strong>Velenda</strong>, <strong>we</strong>, <strong>us</strong>, <strong>our</strong>),
+                Australian companies delivering pharma raw materials intelligence, sourcing
+                services and the Velenda workflow operating system.
+              </p>
+              <p>
+                The policies on this page govern your use of <em>www.velenda.com</em>, the
+                Velenda platform, and any service you receive from us. They describe our
+                commitment to quality, the personal information we handle, the cookies we
+                use, and the legal terms under which this site is published.
+              </p>
+              <p>
+                We are bound by the <em>Privacy Act 1988</em> (Cth) and the Australian Privacy
+                Principles. These policies are effective from <strong>April 2026</strong> and
+                apply to all interactions with Velenda from that date forward. We may update
+                them from time to time; the version published here is the current version.
+              </p>
+              <div class="vl-legal-callout">
+                <strong>In short.</strong> If you visit our website, contact our team, or use
+                Velenda as a customer or pilot partner, these policies tell you how we treat
+                your information and what your rights are.
+              </div>
+            </article>
+
+            <!-- 2. QUALITY POLICY -->
+            <article id="quality" class="vl-legal-section vl-reveal">
+              <span class="vl-legal-section__num">Section 02</span>
+              <h2>Quality policy</h2>
+              <p>
+                Velenda is committed to delivering trustworthy, accurate and timely
+                intelligence to the pharmaceutical manufacturers, formulators and supply chain
+                teams who rely on us. Quality, in our context, means the data we hold is
+                current and provable, the decisions our customers make on top of it are
+                supported by evidence, and the services we operate around it are dependable.
+              </p>
+              <h3>Our commitments</h3>
+              <ul>
+                <li>Maintain the integrity, currency and traceability of the proprietary raw materials database that underpins Velenda and our procurement service.</li>
+                <li>Operate Velenda and Clara AI in line with applicable regulatory, ethical and contractual obligations across the regions our customers manufacture in.</li>
+                <li>Continuously improve our processes, tooling and controls through internal review, customer feedback and pilot-partner engagement.</li>
+                <li>Hold our suppliers and partners to the standards our customers expect of us.</li>
+                <li>Train and support our team so that quality is owned end-to-end, not delegated to a checklist.</li>
+              </ul>
+              <p>
+                This quality policy is reviewed regularly and refreshed whenever the scope of
+                our services, the regulatory environment, or the technology underneath
+                Velenda materially changes.
+              </p>
+            </article>
+
+            <!-- 3. PRIVACY STATEMENT -->
+            <article id="privacy" class="vl-legal-section vl-reveal">
+              <span class="vl-legal-section__num">Section 03</span>
+              <h2>Privacy statement</h2>
+              <p>
+                Velenda respects your privacy and is committed to handling personal
+                information lawfully, fairly and transparently in accordance with the
+                <em>Privacy Act 1988</em> (Cth) and the Australian Privacy Principles.
+              </p>
+
+              <h3>Information we collect</h3>
+              <p>We collect personal information only where it is reasonably necessary for our functions or activities, including when:</p>
+              <ul>
+                <li>You visit <em>www.velenda.com</em> (technical information such as IP address, browser type, device characteristics, pages viewed, referring URL and timestamps);</li>
+                <li>You contact us through email, web forms, phone or in person (your name, organisation, role, contact details and the content of your enquiry);</li>
+                <li>You engage with us as a customer, pilot partner, supplier or service provider (commercial contact details, billing information, contractual records and operational data needed to deliver the engagement);</li>
+                <li>You apply to work with us (information you provide in your application, references and any pre-engagement checks consented to).</li>
+              </ul>
+
+              <h3>How we use your information</h3>
+              <p>We use personal information to:</p>
+              <ul>
+                <li>Respond to enquiries and deliver the services you have asked us to deliver;</li>
+                <li>Operate, maintain, secure and improve our website and the Velenda platform;</li>
+                <li>Manage commercial relationships, including billing, contracting and reporting;</li>
+                <li>Meet our legal, regulatory, audit and risk-management obligations;</li>
+                <li>Communicate updates that are directly relevant to a service you receive from us. Marketing communications are sent only where you have opted in, and you can opt out at any time.</li>
+              </ul>
+
+              <h3>How we share your information</h3>
+              <p>
+                We do not sell personal information. We may disclose information to trusted
+                service providers (for example, hosting, analytics, payment processing or
+                professional advisors) under written agreements that require them to protect
+                it and use it only for the agreed purpose. We may also disclose information
+                where we are required or authorised to do so by law.
+              </p>
+              <p>
+                Some of our service providers operate outside Australia. Where information
+                is transferred overseas we take reasonable steps to ensure it is handled in
+                a manner consistent with the Australian Privacy Principles.
+              </p>
+
+              <h3>How we store and protect your information</h3>
+              <p>
+                We hold personal information in secured systems with access limited to
+                personnel who need it to perform their role. We use encryption in transit,
+                hardened cloud infrastructure, role-based access control, audit logging and
+                ongoing security review. Where information is no longer required for the
+                purpose it was collected for, and there is no legal obligation to retain it,
+                we securely destroy or de-identify it.
+              </p>
+
+              <h3>Your rights</h3>
+              <p>
+                You have the right to ask what personal information we hold about you, to
+                request that we correct it, and to ask us to delete it where we are not
+                required to keep it. To exercise these rights, contact us using the details
+                below. We will respond within a reasonable time and may need to verify your
+                identity before releasing information.
+              </p>
+
+              <h3>Complaints</h3>
+              <p>
+                If you believe we have mishandled your personal information, please contact
+                us first at <a href="mailto:sales@tricorian.com">sales@tricorian.com</a>
+                so we can investigate and respond. If you are not satisfied with our
+                response, you can refer the matter to the Office of the Australian
+                Information Commissioner (OAIC) at
+                <a href="https://www.oaic.gov.au" rel="noopener">www.oaic.gov.au</a>.
+              </p>
+
+              <div class="vl-legal-callout">
+                <strong>Contact for privacy matters.</strong> Email
+                <a href="mailto:sales@tricorian.com">sales@tricorian.com</a>
+                with the subject line "Privacy" and we will route your request to the right person.
+              </div>
+            </article>
+
+            <!-- 4. COOKIES POLICY -->
+            <article id="cookies" class="vl-legal-section vl-reveal">
+              <span class="vl-legal-section__num">Section 04</span>
+              <h2>Cookies policy</h2>
+              <p>
+                Cookies are small text files placed on your device when you visit a website.
+                We use them to make this site work, to understand how it is used, and to
+                improve it.
+              </p>
+
+              <h3>Types of cookies we use</h3>
+              <ul>
+                <li><strong>Essential cookies</strong> — required for the site to function (for example, remembering navigation state). These cannot be turned off in our system.</li>
+                <li><strong>Analytical cookies</strong> — help us understand which pages are visited and how visitors move through the site, so we can improve content and structure.</li>
+                <li><strong>Functionality cookies</strong> — remember preferences (such as previously dismissed messages) so you have a more consistent experience between visits.</li>
+                <li><strong>Targeting cookies</strong> — set by us or third parties to understand the relevance of content. We use these sparingly, only where they support a legitimate purpose.</li>
+              </ul>
+
+              <h3>Third-party cookies</h3>
+              <p>
+                We may use reputable third-party analytics or advertising platforms which
+                set their own cookies (for example, to measure campaign performance or
+                aggregate traffic statistics). These providers act as independent data
+                handlers and are bound by their own privacy policies, in addition to any
+                contractual obligations they owe us.
+              </p>
+
+              <h3>Managing cookies</h3>
+              <p>
+                You can control cookies through your browser settings — accepting, refusing
+                or deleting them at any time. Disabling some categories may affect how parts
+                of this site behave. Most browsers also offer a "do not track" option which,
+                where supported, we honour.
+              </p>
+            </article>
+
+            <!-- 5. LEGAL STATEMENT -->
+            <article id="legal" class="vl-legal-section vl-reveal">
+              <span class="vl-legal-section__num">Section 05</span>
+              <h2>Legal statement</h2>
+              <p>
+                The content published on <em>www.velenda.com</em> is provided for general
+                information only. It describes our services, our platform and our
+                perspective on the pharma raw materials and manufacturing space. It is not
+                regulatory advice, clinical advice, financial advice or a substitute for
+                qualified professional judgement in your specific circumstances.
+              </p>
+              <p>
+                We work to keep information on this site accurate and current, but we do not
+                warrant that it is complete, error-free or up to date at any given moment.
+                Reliance on any information published here is at your own risk. To the
+                maximum extent permitted by law, Velenda excludes liability for any loss or
+                damage arising from your use of this site or its content.
+              </p>
+              <p>
+                All trademarks, logos, text, code and designs on this site are owned by
+                Velenda or our licensors and are protected by Australian and international
+                intellectual property laws. They may not be reproduced, distributed or used
+                in any way without our prior written consent, except as expressly permitted
+                by law.
+              </p>
+              <p>
+                These policies, and any matter arising from your use of this site, are
+                governed by the laws of the Commonwealth of Australia and the laws of the
+                State in which our principal place of business is located. The courts of
+                that jurisdiction have exclusive jurisdiction over any dispute.
+              </p>
+
+              <div class="vl-legal-foot">
+                <span>Velenda · A Tricorian Group company</span>
+                <span>Effective April 2026 · Last reviewed April 2026</span>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer (injected by main.js) -->
+  <div id="vl-footer-slot"></div>
+
+  <script src="js/main.js"></script>
+  <script>
+  /* TOC active-section sync */
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var links = document.querySelectorAll('.vl-legal-toc__list a');
+    var map = {};
+    links.forEach(function (a) {
+      var id = a.getAttribute('href').replace('#', '');
+      map[id] = a;
+    });
+    var sections = document.querySelectorAll('.vl-legal-section[id]');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var id = e.target.id;
+        if (e.isIntersecting && map[id]) {
+          links.forEach(function (a) { a.classList.remove('is-active'); });
+          map[id].classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 });
+    sections.forEach(function (s) { io.observe(s); });
+  })();
+  </script>
+</body>
+</html>

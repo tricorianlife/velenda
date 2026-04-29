@@ -1,0 +1,41 @@
+<!--
+  VELENDA — Site header
+  Loaded into <div id="vl-header-slot"></div> by js/main.js (fetch + inject).
+  Edit this file directly; the home page and every other page picks it up.
+
+  Tokens injected at runtime:
+    {{TRICORIAN_HOME}}  → https://www.tricorian.com/  (defined in js/main.js)
+-->
+<header class="vl-header" id="vlHeader">
+  <div class="vl-header__inner">
+    <a href="index.html" class="vl-header__brand" aria-label="Velenda — home">
+      <img src="assets/velenda-logo.png" alt="Velenda" class="vl-header__logo">
+      <span class="vl-header__brandtag">Pharma · AI</span>
+    </a>
+
+    <nav class="vl-header__nav" id="vlNav" aria-label="Primary">
+      <a href="index.html"                    class="vl-header__link" data-nav="index.html">Home</a>
+      <a href="index.html#capabilities"       class="vl-header__link">Platform</a>
+      <a href="index.html#clara"              class="vl-header__link">Clara AI</a>
+      <a href="privacy-policy.html"           class="vl-header__link" data-nav="privacy-policy.html">Privacy</a>
+
+      <a href="{{TRICORIAN_HOME}}" class="vl-header__return" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Tricorian
+      </a>
+
+      <a href="index.html#contact" class="vl-header__cta">
+        Contact
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </nav>
+
+    <button class="vl-header__toggle" id="vlToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="vlNav">
+      <span></span>
+    </button>
+  </div>
+</header>
