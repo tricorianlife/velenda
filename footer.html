@@ -4,8 +4,8 @@
   Edit this file directly; the home page and every other page picks it up.
 
   Tokens injected at runtime:
-    {{TRICORIAN_HOME}}  → https://www.tricorian.com/  (defined in js/main.js)
-    {{YEAR}}            → current year                (computed in js/main.js)
+    {{TRICORIAN_HOME}}  -> https://www.tricorian.com/  (defined in js/main.js)
+    {{YEAR}}            -> current year                (computed in js/main.js)
 -->
 <footer class="vl-footer">
   <div class="vl-footer__bg">
@@ -15,7 +15,14 @@
     <div class="vl-footer__top">
 
       <div class="vl-footer__brand">
-        <img src="assets/velenda-logo.png" alt="Velenda" class="vl-footer__logo">
+        <a href="index.html" class="vl-footer__brand-link" aria-label="Velenda home">
+          <img
+            src="assets/velenda-logo.png"
+            alt="Velenda"
+            class="vl-footer__logo"
+            width="3314" height="693"
+            style="height:42px;width:auto;max-width:220px;object-fit:contain;align-self:flex-start;display:block;">
+        </a>
         <p class="vl-footer__lede">
           A workflow operating system for pharma. Formulation, sourcing and manufacturing
           unified on top of the world's deepest proprietary raw materials database, with
