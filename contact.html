@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Contact · Velenda</title>
+  <title>Contact - Velenda</title>
   <meta name="description" content="Talk to Velenda. Pharma partnerships, raw materials sourcing, investor relations and supplier onboarding. Sales responds within 24 hours.">
   <meta name="theme-color" content="#0E1F3D">
   <meta name="color-scheme" content="light">
@@ -19,8 +19,6 @@
   <link rel="stylesheet" href="css/main.css">
 
   <style>
-  /* ============== PAGE-SPECIFIC: CONTACT ============== */
-
   .vl-cp-hero {
     position:relative; overflow:hidden; color:#fff;
     background:
@@ -126,7 +124,6 @@
   }
   .vl-cp-hero__wave svg { width:100%; height:100%; display:block; }
 
-  /* === FORM SECTION === */
   .vl-cp-section {
     background:linear-gradient(180deg, #fff 0%, var(--vl-mint-pale) 100%);
     padding:80px 0 96px;
@@ -153,7 +150,6 @@
     .vl-cp-grid { grid-template-columns:1fr; gap:32px; }
   }
 
-  /* Aside */
   .vl-cp-aside {
     position:sticky;
     top:calc(var(--vl-header-h) + 24px);
@@ -245,7 +241,6 @@
   .vl-cp-trust span { display:inline-flex; align-items:center; gap:6px; }
   .vl-cp-trust span::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--vl-teal); }
 
-  /* Form panel */
   .vl-cp-form {
     background:#fff;
     border:1px solid rgba(46,193,168,.16);
@@ -304,7 +299,6 @@
 
   .vl-turnstile { margin:16px 0 8px; min-height:65px; }
 
-  /* Inline radio (yes / no) */
   .vl-radio-row {
     display:inline-flex; gap:8px; flex-wrap:wrap;
   }
@@ -331,12 +325,10 @@
   <div class="vl-grain" aria-hidden="true"></div>
   <div class="vl-cursor" aria-hidden="true"></div>
 
-  <!-- Header (injected by main.js) -->
   <div id="vl-header-slot"></div>
 
   <main id="main">
 
-    <!-- HERO -->
     <section class="vl-cp-hero" id="vlCpHero">
       <div class="vl-cp-hero__bg">
         <div class="vl-cp-hero__grid"></div>
@@ -369,11 +361,9 @@
       </div>
     </section>
 
-    <!-- FORM -->
     <section class="vl-cp-section">
       <div class="vl-cp-grid">
 
-        <!-- Aside -->
         <aside class="vl-cp-aside vl-reveal">
           <span class="vl-cp-aside__eyebrow">How we work with you</span>
           <h2 class="vl-cp-aside__h">A short, clear path from first message to first decision.</h2>
@@ -420,14 +410,12 @@
           </div>
         </aside>
 
-        <!-- Form -->
         <div class="vl-cp-form vl-reveal" data-delay="1">
           <h2 class="vl-cp-form__h">Start the conversation</h2>
           <p class="vl-cp-form__sub">Choose the path that best describes you, then fill in the rest. Required fields are marked.</p>
 
           <form id="contact-form" novalidate>
 
-            <!-- Mode selector (premium card grid) -->
             <fieldset class="vl-modes" role="radiogroup" aria-label="What brings you to Velenda">
 
               <div class="vl-modes__opt">
@@ -519,7 +507,6 @@
 
             </fieldset>
 
-            <!-- Common fields -->
             <h3 class="vl-cp-section-h">About you</h3>
 
             <div class="vl-row">
@@ -557,7 +544,6 @@
 
             <div class="vl-cp-divider"></div>
 
-            <!-- ============== MODE: GENERAL ============== -->
             <div class="vl-mode-panel is-active" data-mode="general">
               <h3 class="vl-cp-section-h">Your message</h3>
 
@@ -572,7 +558,6 @@
               </div>
             </div>
 
-            <!-- ============== MODE: PHARMA PARTNERSHIP ============== -->
             <div class="vl-mode-panel" data-mode="partnership">
               <h3 class="vl-cp-section-h">About your operation</h3>
 
@@ -663,7 +648,6 @@
               </div>
             </div>
 
-            <!-- ============== MODE: RAW MATERIALS ============== -->
             <div class="vl-mode-panel" data-mode="materials">
               <h3 class="vl-cp-section-h">Materials</h3>
               <p class="vl-help" style="margin:-6px 0 14px;">Material name and CAS number are required for each line. Add as many materials as you need.</p>
@@ -682,7 +666,6 @@
               </div>
             </div>
 
-            <!-- Materials repeater template -->
             <template id="vlMaterialTpl">
               <div class="vl-material" data-index="__INDEX__">
                 <div class="vl-material__head">
@@ -730,7 +713,6 @@
               </div>
             </template>
 
-            <!-- ============== MODE: INVESTOR ============== -->
             <div class="vl-mode-panel" data-mode="investor">
               <h3 class="vl-cp-section-h">About the firm</h3>
 
@@ -811,7 +793,6 @@
               </div>
             </div>
 
-            <!-- ============== MODE: SUPPLIER ============== -->
             <div class="vl-mode-panel" data-mode="supplier">
               <h3 class="vl-cp-section-h">About your business</h3>
 
@@ -875,10 +856,8 @@
               </div>
             </div>
 
-            <!-- Turnstile -->
             <div class="vl-turnstile" id="vlTurnstile"></div>
 
-            <!-- Submit -->
             <div class="vl-cp-submit">
               <button type="submit" class="vl-btn w-100" id="vlSubmit">
                 <span data-submit-label>Send message</span>
@@ -915,14 +894,11 @@
 
   </main>
 
-  <!-- Footer (injected by main.js) -->
   <div id="vl-footer-slot"></div>
 
-  <!-- Cloudflare Turnstile (same site key as Tricorian; swap if needed) -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script src="js/main.js"></script>
   <script>
-  /* Hero cursor spotlight */
   (function () {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(pointer:coarse)').matches) return;
     var hero = document.getElementById('vlCpHero');
