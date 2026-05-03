@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Velenda · Pharma's Next Operating System</title>
+  <title>Velenda - Pharma's Next Operating System</title>
   <meta name="description" content="Velenda is a workflow operating system for pharma manufacturers, built on a proprietary global raw materials database with Clara AI as the predictive engine.">
   <meta name="theme-color" content="#0E1F3D">
   <meta name="color-scheme" content="light">
@@ -11,23 +11,51 @@
   <link rel="icon" type="image/png" href="assets/velenda-logo.png">
   <link rel="apple-touch-icon" href="assets/velenda-logo.png">
 
-  <meta property="og:title" content="Velenda · Pharma's Next Operating System">
+  <meta property="og:title" content="Velenda - Pharma's Next Operating System">
   <meta property="og:description" content="A workflow OS for formulation, sourcing and manufacturing, with Clara AI as the predictive engine.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.velenda.com/">
   <meta property="og:image" content="assets/velenda-logo.png">
 
+  <!-- Font preconnects: opens the TLS connection early so the woff2 download starts sooner -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Trimmed: only weights actually used (Inter 400/700, JetBrains Mono 700). display=swap = text shows in fallback font immediately. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/main.css">
 
   <style>
-  /* ============== PAGE-SPECIFIC: HOME ============== */
+  /* ============== MINIMAL UTILITIES (replaces Bootstrap CDN) ============== */
+  .container { width:100%; max-width:1280px; padding-right:24px; padding-left:24px; margin-right:auto; margin-left:auto; box-sizing:border-box; }
+  .row { display:flex; flex-wrap:wrap; margin-right:-12px; margin-left:-12px; }
+  .row > [class*="col-"] { flex-shrink:0; width:100%; max-width:100%; padding-right:12px; padding-left:12px; box-sizing:border-box; }
+  .col-12 { flex:0 0 auto; width:100%; }
+  .g-3 { margin-right:-8px; margin-left:-8px; }  .g-3 > [class*="col-"] { padding-right:8px; padding-left:8px; margin-top:1rem; }
+  .g-4 { margin-right:-12px; margin-left:-12px; } .g-4 > [class*="col-"] { padding-right:12px; padding-left:12px; margin-top:1.5rem; }
+  .g-5 { margin-right:-24px; margin-left:-24px; } .g-5 > [class*="col-"] { padding-right:24px; padding-left:24px; margin-top:3rem; }
+  @media (min-width:768px) {
+    .col-md-4 { flex:0 0 auto; width:33.3333%; }
+    .col-md-6 { flex:0 0 auto; width:50%; }
+  }
+  .mb-0 { margin-bottom:0 !important; }
+  .mb-2 { margin-bottom:.5rem !important; }
+  .mb-3 { margin-bottom:1rem !important; }
+  .mb-4 { margin-bottom:1.5rem !important; }
+  .mb-5 { margin-bottom:3rem !important; }
+  .mt-3 { margin-top:1rem !important; }
+  .mt-4 { margin-top:1.5rem !important; }
+  .mt-5 { margin-top:3rem !important; }
+  .text-center { text-align:center !important; }
+  .d-flex { display:flex !important; }
+  .flex-column { flex-direction:column !important; }
+  .flex-wrap { flex-wrap:wrap !important; }
+  .justify-content-center { justify-content:center !important; }
+  .align-items-center { align-items:center !important; }
+  .gap-3 { gap:1rem !important; }
+  .w-100 { width:100% !important; }
 
-  /* Hero */
+  /* ============== PAGE-SPECIFIC: HOME ============== */
   .vl-hero { position:relative; overflow:hidden; background:linear-gradient(180deg,#fff 0%,var(--vl-mint-pale) 100%); padding:104px 0 88px; }
   .vl-hero__bg { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
   .vl-hero__grid {
@@ -44,19 +72,9 @@
   .vl-hero__glow-b { bottom:-220px; right:-140px; width:580px; height:580px; background:radial-gradient(circle, rgba(46,193,168,.30), transparent 70%); }
   .vl-hero__glow-c { top:30%; right:8%; width:380px; height:380px; background:radial-gradient(circle, rgba(77,191,232,.25), transparent 70%); }
   .vl-hero .container { position:relative; z-index:2; }
+  .vl-hero3d { perspective:1400px; transform-style:preserve-3d; }
 
-  /* 3D perspective wrapper */
-  .vl-hero3d {
-    perspective:1400px;
-    transform-style:preserve-3d;
-  }
-
-  /* Floating 3D molecules */
-  .vl-mol {
-    position:absolute; pointer-events:none;
-    transform-style:preserve-3d;
-    animation:vlFloat 14s ease-in-out infinite;
-  }
+  .vl-mol { position:absolute; pointer-events:none; transform-style:preserve-3d; animation:vlFloat 14s ease-in-out infinite; }
   .vl-mol--a { top:14%; left:6%;  width:140px; height:140px; animation-delay:-2s; }
   .vl-mol--b { top:60%; right:8%; width:170px; height:170px; animation-delay:-6s; }
   .vl-mol--c { bottom:8%; left:18%; width:110px; height:110px; animation-delay:-9s; }
@@ -82,7 +100,6 @@
     100% { transform:translate3d(0,0,0)    rotateX(0deg)   rotateY(0deg); }
   }
 
-  /* Brand lockup */
   .vl-brandlockup { display:inline-flex; flex-direction:column; align-items:center; gap:14px; margin-bottom:1.5rem; }
   .vl-brandlockup__logo { height:74px; width:auto; display:block; filter:drop-shadow(0 6px 20px rgba(14,31,61,.18)); }
   @media (max-width:600px){ .vl-brandlockup__logo { height:56px; } }
@@ -94,7 +111,6 @@
   .vl-brandlockup__tag::before, .vl-brandlockup__tag::after { content:""; width:22px; height:1px; background:linear-gradient(90deg, transparent, var(--vl-teal)); }
   .vl-brandlockup__tag::after { background:linear-gradient(90deg, var(--vl-teal), transparent); }
 
-  /* System console */
   .vl-console {
     position:relative; max-width:1080px; margin:64px auto 0;
     background:rgba(255,255,255,.86);
@@ -103,13 +119,10 @@
     border:1px solid rgba(14,31,61,.10);
     border-radius:18px;
     box-shadow:0 24px 60px rgba(14,31,61,.10), inset 0 1px 0 rgba(255,255,255,.7);
-    overflow:hidden;
-    transform-style:preserve-3d;
-    transition:transform .5s ease;
+    overflow:hidden; transform-style:preserve-3d; transition:transform .5s ease;
   }
   .vl-console::before {
-    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-    padding:1px;
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; padding:1px;
     background:linear-gradient(135deg, rgba(46,193,168,.50), transparent 35%, transparent 65%, rgba(77,191,232,.40));
     -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite:xor; mask-composite:exclude;
@@ -151,13 +164,11 @@
     .vl-console__cell { padding:22px; }
   }
 
-  /* ECG */
   .vl-ecg { position:relative; height:80px; overflow:hidden; background:linear-gradient(180deg, transparent, rgba(38,166,136,.05), transparent); }
   .vl-ecg svg { position:absolute; left:0; top:50%; width:200%; height:60px; transform:translateY(-50%); animation:vlEcg 14s linear infinite; }
   .vl-ecg path { fill:none; stroke:var(--vl-teal); stroke-width:1.2; filter:drop-shadow(0 0 6px rgba(38,166,136,.55)); stroke-linejoin:round; stroke-linecap:round; }
   @keyframes vlEcg { from { transform:translate(0,-50%); } to { transform:translate(-50%,-50%); } }
 
-  /* Pillar cards */
   .vl-pillar-row { position:relative; }
   .vl-card {
     position:relative; background:#fff; border:1px solid var(--vl-line);
@@ -219,7 +230,6 @@
   .vl-checks li::before { content:""; position:absolute; left:0; top:13px; width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg, var(--vl-navy), var(--vl-teal)); box-shadow:0 4px 10px rgba(38,166,136,.28); }
   .vl-checks li::after  { content:""; position:absolute; left:7px; top:19px; width:8px; height:4px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg); }
 
-  /* Clara visual */
   .vl-clara {
     position:relative; aspect-ratio:1/1; border-radius:24px; overflow:hidden;
     background:
@@ -284,39 +294,22 @@
   .vl-tele-row:nth-child(3) .vl-tele-row__bar::after { animation-delay:-2s; }
   @keyframes vlBar { 0% { transform:scaleX(.18); } 50% { transform:scaleX(.96); } 100% { transform:scaleX(.18); } }
 
-  /* Live metrics ticker (new) */
   .vl-ticker {
     position:relative;
     background:linear-gradient(180deg, var(--vl-mint-pale), #fff);
     border-top:1px solid var(--vl-line);
     border-bottom:1px solid var(--vl-line);
-    padding:18px 0;
-    overflow:hidden;
+    padding:18px 0; overflow:hidden;
     font-family:var(--vl-mono);
     font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
     color:var(--vl-navy);
   }
-  .vl-ticker__track {
-    display:flex; gap:48px;
-    width:max-content;
-    animation:vlTickerScroll 38s linear infinite;
-  }
-  .vl-ticker__item {
-    display:inline-flex; align-items:center; gap:10px;
-    color:var(--vl-mute);
-  }
+  .vl-ticker__track { display:flex; gap:48px; width:max-content; animation:vlTickerScroll 38s linear infinite; }
+  .vl-ticker__item { display:inline-flex; align-items:center; gap:10px; color:var(--vl-mute); }
   .vl-ticker__item strong { color:var(--vl-teal-deep); }
-  .vl-ticker__item::before {
-    content:""; width:6px; height:6px; border-radius:50%;
-    background:var(--vl-teal);
-    box-shadow:0 0 8px rgba(46,193,168,.7);
-  }
-  @keyframes vlTickerScroll {
-    from { transform:translateX(0); }
-    to   { transform:translateX(-50%); }
-  }
+  .vl-ticker__item::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--vl-teal); box-shadow:0 0 8px rgba(46,193,168,.7); }
+  @keyframes vlTickerScroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
 
-  /* Final CTA */
   .vl-final { position:relative; }
   .vl-final::after {
     content:""; position:absolute; left:50%; top:50%;
@@ -370,8 +363,41 @@
   <div class="vl-grain" aria-hidden="true"></div>
   <div class="vl-cursor" aria-hidden="true"></div>
 
-  <!-- Header (injected by main.js) -->
-  <div id="vl-header-slot"></div>
+  <!-- Header (inlined - no JS fetch needed) -->
+  <header class="vl-header" id="vlHeader">
+    <div class="vl-header__inner">
+      <a href="index.html" class="vl-header__brand" aria-label="Velenda home">
+        <img src="assets/velenda-logo.png" alt="Velenda" class="vl-header__logo">
+        <span class="vl-header__brandtag">Pharma - AI</span>
+      </a>
+
+      <nav class="vl-header__nav" id="vlNav" aria-label="Primary">
+        <a href="index.html"              class="vl-header__link" data-nav="index.html">Home</a>
+        <a href="index.html#capabilities" class="vl-header__link">Platform</a>
+        <a href="index.html#clara"        class="vl-header__link">Clara AI</a>
+        <a href="contact.html"            class="vl-header__link" data-nav="contact.html">Contact</a>
+        <a href="privacy-policy.html"     class="vl-header__link" data-nav="privacy-policy.html">Privacy</a>
+
+        <a href="https://www.tricorian.com/" class="vl-header__return" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Tricorian
+        </a>
+
+        <a href="contact.html" class="vl-header__cta">
+          Get in touch
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </nav>
+
+      <button class="vl-header__toggle" id="vlToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="vlNav">
+        <span></span>
+      </button>
+    </div>
+  </header>
 
   <main id="main">
 
@@ -387,7 +413,6 @@
         <div class="vl-hero__glow-b"></div>
         <div class="vl-hero__glow-c"></div>
 
-        <!-- Floating 3D molecules -->
         <div class="vl-mol vl-mol--a" aria-hidden="true">
           <span class="vl-mol__bond vl-mol__bond--b1"></span>
           <span class="vl-mol__bond vl-mol__bond--b2"></span>
@@ -476,7 +501,6 @@
       </svg>
     </div>
 
-    <!-- Live metrics ticker -->
     <div class="vl-ticker" aria-hidden="true">
       <div class="vl-ticker__track">
         <span class="vl-ticker__item">Materials indexed &nbsp;<strong>250k+</strong></span>
@@ -485,7 +509,6 @@
         <span class="vl-ticker__item">Clara cost models &nbsp;<strong>Continuous</strong></span>
         <span class="vl-ticker__item">Pilot deployments &nbsp;<strong>Onboarding</strong></span>
         <span class="vl-ticker__item">Regions covered &nbsp;<strong>Global</strong></span>
-        <!-- duplicate for seamless loop -->
         <span class="vl-ticker__item">Materials indexed &nbsp;<strong>250k+</strong></span>
         <span class="vl-ticker__item">Qualified suppliers &nbsp;<strong>14k+</strong></span>
         <span class="vl-ticker__item">Active sourcing lines &nbsp;<strong>Live</strong></span>
@@ -649,8 +672,83 @@
 
   </main>
 
-  <!-- Footer (injected by main.js) -->
-  <div id="vl-footer-slot"></div>
+  <!-- Footer (inlined - no JS fetch needed) -->
+  <footer class="vl-footer">
+    <div class="vl-footer__bg">
+      <div class="vl-footer__grid"></div>
+    </div>
+    <div class="container vl-footer__inner">
+      <div class="vl-footer__top">
+
+        <div class="vl-footer__brand">
+          <a href="index.html" class="vl-footer__brand-link" aria-label="Velenda home">
+            <img
+              src="assets/velenda-logo.png"
+              alt="Velenda"
+              class="vl-footer__logo"
+              width="3314" height="693"
+              style="height:42px;width:auto;max-width:220px;object-fit:contain;align-self:flex-start;display:block;">
+          </a>
+          <p class="vl-footer__lede">
+            A workflow operating system for pharma. Formulation, sourcing and manufacturing
+            unified on top of the world's deepest proprietary raw materials database, with
+            Clara AI as the predictive engine.
+          </p>
+          <span class="vl-footer__signal">
+            <span class="vl-footer__signal-dot"></span>
+            System &middot; Live &middot; Build 2026
+          </span>
+        </div>
+
+        <div>
+          <h4 class="vl-footer__col-h">Platform</h4>
+          <ul class="vl-footer__list">
+            <li><a href="index.html#capabilities">Materials database</a></li>
+            <li><a href="index.html#clara">Clara AI</a></li>
+            <li><a href="index.html#capabilities">Formulation</a></li>
+            <li><a href="index.html#capabilities">Procurement</a></li>
+            <li><a href="index.html#capabilities">Manufacturing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="vl-footer__col-h">Get in touch</h4>
+          <ul class="vl-footer__list">
+            <li><a href="contact.html?type=partnership">Pharma partnership</a></li>
+            <li><a href="contact.html?type=materials">Raw materials order</a></li>
+            <li><a href="contact.html?type=investor">Investor relations</a></li>
+            <li><a href="contact.html?type=supplier">Supplier onboarding</a></li>
+            <li><a href="contact.html">General enquiry</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="vl-footer__col-h">Company &amp; Legal</h4>
+          <p class="vl-footer__contact">
+            <a href="https://www.tricorian.com/contact-us/">Get in touch with our team</a><br>
+            Response within 24 hours
+          </p>
+          <ul class="vl-footer__list" style="margin-top:14px;">
+            <li><a href="https://www.tricorian.com/" rel="noopener">Tricorian Group</a></li>
+            <li><a href="privacy-policy.html">Privacy policy</a></li>
+            <li><a href="privacy-policy.html#cookies">Cookies</a></li>
+            <li><a href="privacy-policy.html#legal">Legal</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="vl-footer__bottom">
+        <span>&copy; 2026 Velenda &middot; A Tricorian Group company. All rights reserved.</span>
+        <a href="https://www.tricorian.com/" class="vl-footer__back" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Return to Tricorian
+        </a>
+      </div>
+    </div>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
