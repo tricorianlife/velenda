@@ -11,34 +11,16 @@
 (function () {
   'use strict';
 
-  /* ---------- Config ----------
-     Edit TRICORIAN_HOME if the destination ever moves. Templates use the
-     {{TRICORIAN_HOME}} and {{YEAR}} tokens which are replaced at fetch time.
-  ------------------------------ */
+  /* ---------- Config ---------- */
   const CONFIG = {
     TRICORIAN_HOME: 'https://www.tricorian.com/',
     HEADER_URL: 'header.html',
     FOOTER_URL: 'footer.html',
-
-    /* Contact form
-       =====================================================================
-       Where to POST contact submissions. Two supported patterns:
-
-       1. Your own backend (recommended). The Tricorian Django backend
-          already accepts these field names, so point this at that endpoint, e.g.
-            'https://www.tricorian.com/contact/api/'
-          (CORS must allow https://www.velenda.com).
-
-       2. A static-site form service that accepts an arbitrary JSON body.
-
-       If left null, the visitor is redirected to the Tricorian contact page.
-       ===================================================================== */
-    CONTACT_ENDPOINT: null,
-    CONTACT_FALLBACK_URL: 'https://www.tricorian.com/contact-us/',
-    TURNSTILE_SITE_KEY: '0x4AAAAAAAQ56bsIs2w5_qkd' /* same key as Tricorian */
+    CONTACT_TO: 'sales@tricorian.com',
+    CONTACT_ENDPOINT: 'https://www.tricorian.com/contact/velenda/',
+    TURNSTILE_SITE_KEY: '0x4AAAAAAAQ56bsIs2w5_qkd'
   };
 
-  /* Friendly labels per mode (used in submit button + email subject) */
   const MODE_LABEL = {
     general:     { btn: 'Send message',          subject: 'General enquiry' },
     partnership: { btn: 'Request demo',          subject: 'Pharma partnership / demo request' },
@@ -47,26 +29,22 @@
     supplier:    { btn: 'Submit supplier enquiry',    subject: 'Supplier onboarding enquiry' }
   };
 
-  /* ---------- Template token replacement ---------- */
   function applyTokens(html) {
     return html
       .replace(/\{\{TRICORIAN_HOME\}\}/g, CONFIG.TRICORIAN_HOME)
       .replace(/\{\{YEAR\}\}/g, String(new Date().getFullYear()));
   }
 
-  /* ---------- Fetch + inject header / footer ---------- */
   async function loadFragment(url, slotId) {
     const slot = document.getElementById(slotId);
     if (!slot) return false;
     try {
       const res = await fetch(url, { credentials: 'same-origin' });
-      if (!res.ok) throw new Error('fetch ' + url + ' → ' + res.status);
+      if (!res.ok) throw new Error('fetch ' + url + ' -> ' + res.status);
       const html = applyTokens(await res.text());
-      // Replace the slot div with the fetched markup
       slot.outerHTML = html;
       return true;
     } catch (err) {
-      // Likely cause: opened via file:// where fetch is blocked.
       console.warn('[Velenda] Could not load ' + url + '. Serve the site over HTTP.', err);
       slot.innerHTML =
         '<div style="padding:14px 24px;font-family:monospace;font-size:12px;color:#0E1F3D;background:#fdf2c8;border:1px solid #e6c84a;">' +
@@ -78,9 +56,7 @@
     }
   }
 
-  /* ---------- Wire interactions (after DOM contains header/footer) ---------- */
   function wire() {
-    /* Mark active nav link based on current page */
     const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
     document.querySelectorAll('.vl-header__link[data-nav]').forEach((a) => {
       if ((a.dataset.nav || '').toLowerCase() === path) a.classList.add('is-active');
@@ -89,7 +65,6 @@
       document.querySelector('.vl-header__link[data-nav="index.html"]').classList.add('is-active');
     }
 
-    /* Scroll state on header */
     const header = document.getElementById('vlHeader');
     const onScroll = () => {
       if (!header) return;
@@ -98,7 +73,6 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    /* Mobile nav toggle */
     const toggle = document.getElementById('vlToggle');
     const nav    = document.getElementById('vlNav');
     if (toggle && nav) {
@@ -116,7 +90,6 @@
       });
     }
 
-    /* Cursor spotlight (skip on touch) */
     const cursor = document.querySelector('.vl-cursor');
     if (cursor && !matchMedia('(pointer:coarse)').matches) {
       window.addEventListener('mousemove', (e) => {
@@ -125,7 +98,6 @@
       }, { passive: true });
     }
 
-    /* IntersectionObserver-driven reveal */
     if ('IntersectionObserver' in window) {
       const els = document.querySelectorAll('.vl-reveal');
       const io = new IntersectionObserver((entries) => {
@@ -138,7 +110,6 @@
       document.querySelectorAll('.vl-reveal').forEach((el) => el.classList.add('is-in'));
     }
 
-    /* 3D tilt on any [data-tilt] block (desktop only) */
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const touch  = matchMedia('(pointer:coarse)').matches;
     if (!reduce && !touch) {
@@ -148,7 +119,6 @@
           const x = (e.clientX - r.left) / r.width  - 0.5;
           const y = (e.clientY - r.top)  / r.height - 0.5;
           el.style.transform = 'perspective(900px) rotateX(' + (-y * 6).toFixed(2) + 'deg) rotateY(' + (x * 8).toFixed(2) + 'deg)';
-          // Card-internal mouse position for radial highlight
           el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
           el.style.setProperty('--my', (e.clientY - r.top) + 'px');
         });
@@ -156,13 +126,8 @@
       });
     }
 
-    /* Contact form (only initialised on the contact page) */
     initContactForm();
   }
-
-  /* =====================================================================
-     CONTACT FORM
-     ===================================================================== */
 
   function initContactForm() {
     const form = document.getElementById('contact-form');
@@ -181,7 +146,6 @@
     const errBox         = form.querySelector('#vlErr');
     const errMsg         = form.querySelector('#vlErrMsg');
 
-    /* ----- mode selection (also responds to ?type= URL param) ----- */
     const allowedModes = ['general','partnership','materials','investor','supplier'];
     const params = new URLSearchParams(location.search);
     const fromUrl = params.get('type');
@@ -198,14 +162,11 @@
     function applyMode(mode) {
       panels.forEach((p) => p.classList.toggle('is-active', p.dataset.mode === mode));
       if (submitLabelEl && MODE_LABEL[mode]) submitLabelEl.textContent = MODE_LABEL[mode].btn;
-
-      // Required-when toggling
       form.querySelectorAll('[data-required-when]').forEach((el) => {
         const need = el.getAttribute('data-required-when');
         if (need === mode) el.setAttribute('required', '');
         else                el.removeAttribute('required');
       });
-      // Materials required-marking
       const matRequired = (mode === 'materials');
       form.querySelectorAll('[data-mat-required]').forEach((el) => {
         if (matRequired) el.setAttribute('required', '');
@@ -220,7 +181,10 @@
     }
     applyMode(activeMode());
 
-    /* ----- materials repeater ----- */
+    form.addEventListener('input', (e) => {
+      if (e.target && e.target.removeAttribute) e.target.removeAttribute('aria-invalid');
+    });
+
     let matIndex = 0;
     function renderMaterial() {
       if (!matsTpl || !matsContainer) return;
@@ -233,7 +197,6 @@
       matsContainer.appendChild(node);
       matIndex++;
       updateMaterialRemoveButtons();
-      // Apply current mode (so required attrs land on new inputs)
       applyMode(activeMode());
     }
     function updateMaterialRemoveButtons() {
@@ -245,9 +208,7 @@
         if (rm) rm.toggleAttribute('hidden', rows.length <= 1);
       });
     }
-    if (addMatBtn) {
-      addMatBtn.addEventListener('click', renderMaterial);
-    }
+    if (addMatBtn) addMatBtn.addEventListener('click', renderMaterial);
     if (matsContainer) {
       matsContainer.addEventListener('click', (e) => {
         const btn = e.target.closest('.vl-material__remove');
@@ -258,11 +219,9 @@
           updateMaterialRemoveButtons();
         }
       });
-      // Seed with one row
       renderMaterial();
     }
 
-    /* ----- turnstile (loaded if API arrives) ----- */
     let turnstileWidgetId = null;
     function mountTurnstile() {
       if (!turnstileMount || !window.turnstile || !CONFIG.TURNSTILE_SITE_KEY) return;
@@ -277,7 +236,6 @@
     }
     if (window.turnstile) mountTurnstile();
     else {
-      // Wait until the Turnstile script self-initialises
       const poll = setInterval(() => {
         if (window.turnstile) { mountTurnstile(); clearInterval(poll); }
       }, 200);
@@ -294,12 +252,10 @@
       }
     }
 
-    /* ----- collect ----- */
     function collect() {
       const data = {};
       const fd = new FormData(form);
       fd.forEach((value, key) => {
-        // Convert materials[N][field] into a nested array
         const m = key.match(/^materials\[(\d+)\]\[(\w+)\]$/);
         if (m) {
           data.materials = data.materials || [];
@@ -315,11 +271,9 @@
           data[key] = String(value).trim();
         }
       });
-      // Compact materials to filled rows only
       if (Array.isArray(data.materials)) {
         data.materials = data.materials.filter((row) => row && (row.name || row.cas));
       }
-      // Friendly meta
       data.form_type = activeMode();
       data.subject_label = (MODE_LABEL[data.form_type] || {}).subject || 'Velenda enquiry';
       data.submitted_at = new Date().toISOString();
@@ -329,13 +283,27 @@
       return data;
     }
 
-    /* ----- contact page fallback ----- */
-    function buildContactRedirect(data) {
-      const subj = '[Velenda · ' + data.subject_label + '] ' + (data.first_name || '') + ' ' + (data.last_name || '');
-      return CONFIG.CONTACT_FALLBACK_URL + '?subject=' + encodeURIComponent(subj);
+    function buildMailtoFallback(data) {
+      const subj = '[Velenda] ' + data.subject_label + ' - ' +
+        ((data.first_name || '') + ' ' + (data.last_name || '')).trim();
+      const lines = [];
+      Object.keys(data).forEach((k) => {
+        if (k === 'materials' || k.charAt(0) === '_' || k === 'cf-turnstile-response') return;
+        const v = data[k];
+        if (v === '' || v == null) return;
+        lines.push(k + ': ' + (Array.isArray(v) ? v.join(', ') : v));
+      });
+      if (Array.isArray(data.materials) && data.materials.length) {
+        data.materials.forEach((m, i) => {
+          lines.push('Material ' + (i+1) + ' name: ' + (m.name || ''));
+          lines.push('Material ' + (i+1) + ' CAS: ' + (m.cas || ''));
+        });
+      }
+      return 'mailto:' + CONFIG.CONTACT_TO +
+        '?subject=' + encodeURIComponent(subj) +
+        '&body=' + encodeURIComponent(lines.join('\n'));
     }
 
-    /* ----- show / hide UI states ----- */
     function setLoading(on) {
       submitBtn.classList.toggle('is-loading', on);
       submitBtn.disabled = on;
@@ -351,59 +319,71 @@
       okBox.classList.add('is-hidden');
     }
 
-    /* ----- validation ----- */
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     function validate(data) {
       const fail = [];
-      if (!data.first_name) fail.push('first name');
-      if (!data.last_name)  fail.push('last name');
-      if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) fail.push('valid work email');
-      if (!data.company)    fail.push('company');
-      if (!data.location)   fail.push('location');
+      if (!data.first_name) fail.push({ label: 'first name', selector: '#cf-first' });
+      if (!data.last_name)  fail.push({ label: 'last name',  selector: '#cf-last'  });
+      if (!data.email) {
+        fail.push({ label: 'work email', selector: '#cf-email' });
+      } else if (!EMAIL_RE.test(data.email)) {
+        fail.push({ label: 'work email (please check the @ and domain)', selector: '#cf-email' });
+      }
+      if (!data.company)  fail.push({ label: 'company',  selector: '#cf-company'  });
+      if (!data.location) fail.push({ label: 'location', selector: '#cf-location' });
 
       if (data.form_type === 'general') {
-        if (!data.message) fail.push('message');
+        if (!data.message) fail.push({ label: 'message', selector: '#cf-message' });
       } else if (data.form_type === 'partnership') {
-        if (!data.demo_date) fail.push('preferred date');
-        if (!data.demo_time) fail.push('preferred time');
-        if (!data.demo_tz)   fail.push('time zone');
+        if (!data.demo_date) fail.push({ label: 'preferred date', selector: '#cf-demo-date' });
+        if (!data.demo_time) fail.push({ label: 'preferred time', selector: '#cf-demo-time' });
+        if (!data.demo_tz)   fail.push({ label: 'time zone',      selector: '#cf-demo-tz'   });
       } else if (data.form_type === 'materials') {
         if (!Array.isArray(data.materials) || data.materials.length === 0) {
-          fail.push('at least one material with name and CAS number');
+          fail.push({ label: 'at least one material with name and CAS number', selector: '#vlMaterials input' });
         } else {
           const incomplete = data.materials.some((m) => !m.name || !m.cas);
-          if (incomplete) fail.push('material name and CAS number for every row');
+          if (incomplete) fail.push({ label: 'material name and CAS number for every row', selector: '#vlMaterials input' });
         }
       } else if (data.form_type === 'investor') {
-        if (!data.investor_firm) fail.push('firm name');
+        if (!data.investor_firm) fail.push({ label: 'firm name', selector: '#cf-inv-firm' });
       }
       return fail;
     }
 
-    /* ----- submit ----- */
+    function clearFieldErrors() {
+      form.querySelectorAll('[aria-invalid="true"]').forEach((el) => el.removeAttribute('aria-invalid'));
+    }
+    function markFieldErrors(issues) {
+      issues.forEach((iss) => {
+        const el = form.querySelector(iss.selector);
+        if (el) el.setAttribute('aria-invalid', 'true');
+      });
+      if (issues.length) {
+        const first = form.querySelector(issues[0].selector);
+        if (first) {
+          try { first.focus({ preventScroll: true }); } catch (_) { first.focus(); }
+          first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       okBox.classList.add('is-hidden');
       errBox.classList.add('is-hidden');
+      clearFieldErrors();
 
       const data = collect();
       const issues = validate(data);
       if (issues.length) {
-        showErr('Please add: ' + issues.join(', ') + '.');
+        markFieldErrors(issues);
+        showErr('Please complete: ' + issues.map((i) => i.label).join(', ') + '.');
         return;
       }
 
       setLoading(true);
-
-      // No backend wired? Redirect to the Tricorian contact page.
-      if (!CONFIG.CONTACT_ENDPOINT) {
-        try {
-          window.location.href = buildContactRedirect(data);
-        } catch (err) {
-          setLoading(false);
-          showErr('Could not redirect. Please <a href="' + CONFIG.CONTACT_FALLBACK_URL + '">get in touch with our team</a>.');
-        }
-        return;
-      }
+      const mailto = buildMailtoFallback(data);
 
       try {
         const res = await fetch(CONFIG.CONTACT_ENDPOINT, {
@@ -412,8 +392,12 @@
           body: JSON.stringify(data)
         });
         if (!res.ok) throw new Error('HTTP ' + res.status);
+        let body = null;
+        try { body = await res.json(); } catch (_) {}
+        if (body && body.success === false) {
+          throw new Error(body.error || 'Submission rejected');
+        }
         form.reset();
-        // Reset materials to one fresh row
         if (matsContainer) {
           matsContainer.innerHTML = '';
           matIndex = 0;
@@ -425,12 +409,11 @@
         showOk();
       } catch (err) {
         setLoading(false);
-        showErr('We could not submit your message just now. Please try again, or <a href="' + CONFIG.CONTACT_FALLBACK_URL + '">get in touch with our team</a>.');
+        showErr('We could not submit your message just now. Please try again, or email <a href="' + mailto + '">' + CONFIG.CONTACT_TO + '</a> directly.');
       }
     });
   }
 
-  /* ---------- Boot ---------- */
   async function boot() {
     await Promise.all([
       loadFragment(CONFIG.HEADER_URL, 'vl-header-slot'),
