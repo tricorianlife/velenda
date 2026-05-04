@@ -356,6 +356,41 @@
     .vl-telemetry { font-size:10px; left:14px; right:14px; bottom:14px; }
     .vl-mol { display:none; }
   }
+
+  /* ============== LAYOUT FIXES ============== */
+  /* Pillars: force 3-up side-by-side from 640px (instead of 768px) and override the row's flex so columns sit as true grid pillars. */
+  @media (min-width:640px){
+    .vl-pillar-row {
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:24px;
+      margin-right:0; margin-left:0;
+    }
+    .vl-pillar-row > [class*="col-"] {
+      width:auto; max-width:none;
+      padding-right:0; padding-left:0; margin-top:0;
+      flex:0 0 auto;
+    }
+    .vl-pillar-row .vl-card { height:100%; }
+  }
+
+  /* Moat section: text left, Clara right at 768px+, sized so it sits adjacent to the copy with no dead gap. */
+  .vl-clara { max-width:420px; margin-left:auto; margin-right:auto; }
+  @media (min-width:768px){
+    #clara .row {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,420px);
+      gap:48px;
+      align-items:center;
+      margin-right:0; margin-left:0;
+    }
+    #clara .row > [class*="col-"] {
+      width:auto; max-width:none;
+      padding-right:0; padding-left:0; margin-top:0;
+      flex:0 0 auto;
+    }
+    #clara .vl-clara { margin:0; max-width:none; width:100%; }
+  }
   </style>
 </head>
 <body>
